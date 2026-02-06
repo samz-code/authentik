@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --brand-green: 172 42% 38%;
+    --brand-teal: 180 50% 20%;
+    --brand-orange: 32 93% 55%;
+    --brand-orange-hover: 20 74% 58%;
+    --brand-neutral: 140 8% 86%;
+    
+    /* Semantic Tokens */
+    --background: 0 0% 100%;
+    --foreground: 180 50% 20%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 180 50% 20%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 50% 20%;
+    
+    --primary: 172 42% 38%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 140 8% 86%;
+    --secondary-foreground: 180 50% 20%;
+    
+    --muted: 140 8% 92%;
+    --muted-foreground: 180 30% 40%;
+    
+    --accent: 32 93% 55%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 140 10% 85%;
+    --input: 140 10% 85%;
+    --ring: 172 42% 38%;
+    
+    --radius: 0.25rem;
+    
+    /* Spacing Scale */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    --space-xxl: 8.75rem;
+    
+    /* Max Widths */
+    --max-content: 75rem;
+    --max-text: 42.5rem;
+    
+    /* Sidebar (keeping defaults) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 180 50% 8%;
+    --foreground: 140 8% 92%;
+    
+    --card: 180 45% 12%;
+    --card-foreground: 140 8% 92%;
+    
+    --popover: 180 45% 12%;
+    --popover-foreground: 140 8% 92%;
+    
+    --primary: 172 42% 45%;
+    --primary-foreground: 180 50% 8%;
+    
+    --secondary: 180 30% 18%;
+    --secondary-foreground: 140 8% 92%;
+    
+    --muted: 180 30% 15%;
+    --muted-foreground: 140 8% 70%;
+    
+    --accent: 32 93% 55%;
+    --accent-foreground: 180 50% 8%;
+    
+    --border: 180 30% 20%;
+    --input: 180 30% 20%;
+    --ring: 172 42% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-medium tracking-tight;
+    line-height: 1.2;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  
+  p {
+    @apply text-base md:text-lg;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply w-full max-w-[75rem] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-text {
+    @apply w-full max-w-[42.5rem] mx-auto px-4 sm:px-6;
+  }
+  
+  .section-spacing {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .section-spacing-sm {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Editorial Link Style */
+  .editorial-link {
+    @apply relative inline-block;
+  }
+  
+  .editorial-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px bg-current transform origin-left scale-x-0 transition-transform duration-300;
+  }
+  
+  .editorial-link:hover::after {
+    @apply scale-x-100;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
