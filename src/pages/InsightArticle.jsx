@@ -1,206 +1,1022 @@
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
-import { ArrowLeft, Calendar, Clock, Tag, Twitter, Linkedin, Facebook, Eye, Bookmark } from "lucide-react";
+import { 
+  ArrowLeft, Calendar, Clock, Tag, Twitter, Linkedin, Facebook, 
+  Eye, Bookmark, Share2, CheckCircle, TrendingUp, Target, 
+  Lightbulb, MessageCircle, Mail, BookOpen
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
 // Article database with complete data
 const articlesData = {
-  "why-most-rebrands-fail": {
-    title: "Why Most Rebrands Fail (And How to Make Yours Succeed)",
-    category: "Branding",
-    date: "January 15, 2024",
-    readTime: "5 min read",
-    views: "2.4K",
+  "why-brands-dont-convert": {
+    title: "Why Most Brands Don't Convert — Even With \"Good Marketing\"",
+    category: "Strategy",
+    date: "February 5, 2024",
+    readTime: "6 min read",
+    views: "3.2K",
     isPublished: true,
-    featuredImage: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&h=600&fit=crop",
+    featuredImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop",
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
       avatar: "AT"
     },
     tableOfContents: [
-      { id: "problem", title: "The Problem with Most Rebrands" },
-      { id: "questions", title: "Three Questions Before You Rebrand" },
-      { id: "approach", title: "The Authentik Approach to Rebranding" },
-      { id: "conclusion", title: "The Bottom Line" }
+      { id: "issue", title: "The Real Issue Isn't Effort — It's Alignment" },
+      { id: "good-marketing", title: "When \"Good Marketing\" Still Doesn't Convert" },
+      { id: "visibility", title: "Visibility Is Not the Same as Positioning" },
+      { id: "perspective", title: "Our Perspective at Authentik" },
+      { id: "takeaway", title: "The Practical Takeaway" }
     ],
     content: `
-      <p class="lead">Rebranding is more than a new logo. It's a strategic realignment of who you are, who you serve, and how you show up. Yet most rebrands fail to deliver the transformation businesses hope for. Here's why — and how to make yours different.</p>
+      <p class="lead">Most brands today are doing something. They post consistently. They run ads. They have a logo, a website, and a social presence. And yet — conversion remains low. Leads feel unqualified. Engagement looks decent but doesn't translate into revenue. Marketing feels expensive, exhausting, and unpredictable.</p>
 
-      <h2 id="problem">The Problem with Most Rebrands</h2>
-      <p>Most companies approach rebranding as a cosmetic exercise. They update their logo, refresh their color palette, maybe redesign their website. Then they wonder why nothing changed.</p>
+      <p>The common assumption is that the problem is execution. It rarely is.</p>
+
+      <h2 id="issue">The Real Issue Isn't Effort — It's Alignment</h2>
+      <p>What we see repeatedly is this: Brands invest in visibility before they invest in clarity.</p>
       
-      <p>The issue isn't the execution. It's the foundation. Without strategic clarity about <em>why</em> you're rebranding and <em>what</em> needs to change, you're just rearranging deck chairs.</p>
+      <p>They focus on:</p>
+      <ul>
+        <li>More content</li>
+        <li>Better ads</li>
+        <li>More platforms</li>
+      </ul>
 
-      <div class="image-block">
-        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1000&h=600&fit=crop" alt="Brand strategy planning" />
-        <p class="caption">Strategic planning is the foundation of successful rebranding</p>
-      </div>
-
-      <h2 id="questions">Three Questions Before You Rebrand</h2>
-      <p>Before you touch a single pixel, answer these:</p>
-
-      <h3>1. Has Your Strategy Changed?</h3>
-      <p>If you're serving the same audience, solving the same problems, and delivering the same value — you probably don't need a rebrand. You need better execution of your current brand.</p>
-
-      <h3>2. Is Your Current Brand Hindering Growth?</h3>
-      <p>This is the real test. Are you losing deals because prospects don't understand what you do? Are you attracting the wrong customers? Does your brand fail to communicate your actual value?</p>
-
-      <h3>3. Are You Ready to Follow Through?</h3>
-      <p>A rebrand isn't a one-time project. It's a commitment to show up consistently with your new identity across every touchpoint. Half measures create confusion.</p>
+      <p>Without first answering:</p>
+      <ul>
+        <li>What exactly do we stand for?</li>
+        <li>Who are we actually speaking to?</li>
+        <li>Why should the right client choose us — not just notice us?</li>
+      </ul>
 
       <div class="callout-box">
         <h4>Key Insight</h4>
-        <p>A successful rebrand requires alignment across strategy, design, and execution. Missing any one of these pillars leads to inconsistency and confusion in the market.</p>
+        <p>Good marketing amplifies what already exists. If the foundation is unclear, marketing simply amplifies confusion.</p>
       </div>
 
-      <h2 id="approach">The Authentik Approach to Rebranding</h2>
-      <p>When we work with clients on rebranding, we start with strategy, not style:</p>
+      <h2 id="good-marketing">When "Good Marketing" Still Doesn't Convert</h2>
+      <p>Here's what that looks like in practice:</p>
+      <ul>
+        <li>Visuals look polished, but feel generic</li>
+        <li>Messaging sounds professional, but emotionally flat</li>
+        <li>Content attracts attention, but not decision-makers</li>
+        <li>Leads come in, but pricing conversations stall</li>
+      </ul>
 
-      <div class="process-steps">
-        <div class="step-item">
-          <div class="step-icon">
-            <i class="fas fa-search"></i>
-          </div>
-          <div class="step-content">
-            <h4>Strategic Audit</h4>
-            <p>We assess where you are, where you want to go, and what's blocking you.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-icon">
-            <i class="fas fa-bullseye"></i>
-          </div>
-          <div class="step-content">
-            <h4>Positioning Work</h4>
-            <p>We clarify who you serve, what makes you different, and why it matters.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-icon">
-            <i class="fas fa-palette"></i>
-          </div>
-          <div class="step-content">
-            <h4>Visual Translation</h4>
-            <p>Only then do we develop the visual identity that expresses that strategy.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-icon">
-            <i class="fas fa-map-marked-alt"></i>
-          </div>
-          <div class="step-content">
-            <h4>Implementation Plan</h4>
-            <p>We build a roadmap for rolling out the rebrand consistently across all channels.</p>
-          </div>
-        </div>
-      </div>
+      <p>The audience isn't the problem. The tactics aren't the problem. The expression is misaligned.</p>
 
       <div class="image-block">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1000&h=600&fit=crop" alt="Team collaboration on brand strategy" />
-        <p class="caption">Collaborative approach ensures buy-in across your organization</p>
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1000&h=600&fit=crop" alt="Brand alignment strategy" />
+        <p class="caption">Strategic alignment creates clarity that drives conversion</p>
       </div>
 
-      <h2 id="conclusion">The Bottom Line</h2>
-      <p>A rebrand should be a strategic evolution, not a visual facelift. Get the strategy right first, and the design will follow. Skip that step, and you'll join the long list of companies that spent six figures on a new logo and wondered why nothing changed.</p>
+      <h2 id="visibility">Visibility Is Not the Same as Positioning</h2>
+      <p>A brand can be visible and still be invisible to the right buyer.</p>
+      
+      <p>Positioning answers questions your audience is already asking:</p>
+      <ul>
+        <li>Is this for someone like me?</li>
+        <li>Do they understand my world?</li>
+        <li>Do they feel credible at my level?</li>
+      </ul>
+
+      <p>When positioning is clear:</p>
+      <ul>
+        <li>Conversion improves without increasing ad spend</li>
+        <li>Pricing resistance decreases</li>
+        <li>Decision cycles shorten</li>
+      </ul>
+
+      <h2 id="perspective">Our Perspective at Authentik</h2>
+      <p>We don't start with tactics. We start with:</p>
+      <ul>
+        <li>Expression</li>
+        <li>Clarity</li>
+        <li>Strategic alignment</li>
+      </ul>
+
+      <p>Before content calendars. Before ads. Before influencers.</p>
+
+      <p>When a brand knows how to express itself clearly — visually, verbally, and strategically — marketing stops feeling forced. It becomes obvious.</p>
+
+      <h2 id="takeaway">The Practical Takeaway</h2>
+      <p>If your marketing looks good but isn't converting, don't ask: "How do we do more?"</p>
 
       <blockquote>
-        <p>"The most successful rebrands aren't about changing how you look. They're about clarifying who you are."</p>
+        <p>Ask instead: What are we expressing — and is it aligned with who we want to attract?</p>
       </blockquote>
 
-      <p>If you're considering a rebrand, start with the hard questions. The answers will tell you whether you need a rebrand — or just better brand execution.</p>
+      <p>Conversion follows clarity.</p>
+
+      <p>If you want support clarifying your brand's expression and positioning, Authentik works with brands ready to move beyond surface-level marketing.</p>
     `,
     relatedArticles: [
       {
-        title: "The Hidden Cost of Inconsistent Brand Voice",
-        slug: "hidden-cost-inconsistent-brand-voice",
+        title: "Authenticity Is Not a Vibe — It's a Strategic Advantage",
+        slug: "authenticity-strategic-advantage",
         category: "Strategy",
-        image: "https://images.unsplash.com/photo-1552664688-cf412ec27db2?w=400&h=250&fit=crop"
+        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop"
       },
       {
-        title: "Building a Brand That Lasts: The 5-Year Framework",
-        slug: "building-brand-that-lasts",
+        title: "The Difference Between Being Visible and Being Positioned",
+        slug: "visible-vs-positioned",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Marketing Isn't Broken — Your Foundation Is",
+        slug: "marketing-foundation",
         category: "Strategy",
         image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop"
-      },
-      {
-        title: "The Art of Strategic Simplicity in Brand Design",
-        slug: "strategic-simplicity-brand-design",
-        category: "Branding",
-        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=250&fit=crop"
       }
     ]
   },
-  "hidden-cost-inconsistent-brand-voice": {
-    title: "The Hidden Cost of Inconsistent Brand Voice",
+
+  "authenticity-strategic-advantage": {
+    title: "Authenticity Is Not a Vibe — It's a Strategic Advantage",
     category: "Strategy",
-    date: "December 10, 2023",
-    readTime: "4 min read",
-    views: "1.8K",
-    isPublished: false,
-    featuredImage: "https://images.unsplash.com/photo-1552664688-cf412ec27db2?w=1200&h=600&fit=crop",
+    date: "February 1, 2024",
+    readTime: "5 min read",
+    views: "2.8K",
+    isPublished: true,
+    featuredImage: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=600&fit=crop",
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
       avatar: "AT"
-    }
+    },
+    tableOfContents: [
+      { id: "meaning", title: "What Authenticity Actually Means in Business" },
+      { id: "convert", title: "Why Authentic Brands Convert Better" },
+      { id: "cost", title: "The Cost of Inauthentic Expression" },
+      { id: "advantage", title: "Authenticity as a Competitive Advantage" },
+      { id: "approach", title: "Our Approach at Authentik" }
+    ],
+    content: `
+      <p class="lead">Authenticity has been overused to the point of misunderstanding. It's often treated as a tone, a personality trait, or a social media aesthetic. In reality, authenticity is neither soft nor abstract. It is strategic.</p>
+
+      <h2 id="meaning">What Authenticity Actually Means in Business</h2>
+      <p>Authenticity is alignment between:</p>
+      <ul>
+        <li>What you say</li>
+        <li>How you look</li>
+        <li>How you operate</li>
+        <li>What your audience experiences</li>
+      </ul>
+
+      <p>When these elements are aligned, trust forms naturally. When they are not, friction appears — even if the audience can't explain why.</p>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1000&h=600&fit=crop" alt="Brand authenticity strategy" />
+        <p class="caption">Authentic alignment creates natural trust with your audience</p>
+      </div>
+
+      <h2 id="convert">Why Authentic Brands Convert Better</h2>
+      <p>We see this across industries. Authentic brands:</p>
+      <ul>
+        <li>Attract fewer but higher-quality leads</li>
+        <li>Command stronger pricing power</li>
+        <li>Experience lower resistance during sales conversations</li>
+        <li>Build long-term loyalty instead of one-off transactions</li>
+      </ul>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>This isn't because they are louder or more emotional. It's because they are clear. Clarity creates safety. Safety creates trust. Trust drives conversion.</p>
+      </div>
+
+      <h2 id="cost">The Cost of Inauthentic Expression</h2>
+      <p>Brands that are misaligned often experience:</p>
+      <ul>
+        <li>Constant rebranding</li>
+        <li>Inconsistent messaging</li>
+        <li>Over-reliance on discounts or promotions</li>
+        <li>Marketing that works temporarily, then collapses</li>
+      </ul>
+
+      <p>Inauthenticity doesn't always look fake. Often, it looks confused.</p>
+
+      <h2 id="advantage">Authenticity as a Competitive Advantage</h2>
+      <p>In crowded markets, differentiation rarely comes from features. It comes from:</p>
+      <ul>
+        <li>Point of view</li>
+        <li>Expression</li>
+        <li>Intentional restraint</li>
+      </ul>
+
+      <p>Luxury brands understand this instinctively. They don't explain everything. They don't chase everyone. They don't dilute their voice to please the masses. They express clearly — and allow alignment to do the rest.</p>
+
+      <h2 id="approach">Our Approach at Authentik</h2>
+      <p>We don't ask brands to "be more authentic." We help them express what's already true — with clarity and intention.</p>
+
+      <p>That means:</p>
+      <ul>
+        <li>Defining what matters and what doesn't</li>
+        <li>Aligning visuals, voice, and strategy</li>
+        <li>Removing noise instead of adding tactics</li>
+      </ul>
+
+      <blockquote>
+        <p>Authenticity, expressed properly, becomes leverage.</p>
+      </blockquote>
+
+      <p>Authenticity isn't about being relatable to everyone. It's about being unmistakable to the right people.</p>
+
+      <p>When expression is aligned, marketing becomes more efficient, growth becomes more predictable, and brands stop chasing and start attracting.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "Why Most Brands Don't Convert — Even With \"Good Marketing\"",
+        slug: "why-brands-dont-convert",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Luxury Brands Don't Shout — Here's What They Do Instead",
+        slug: "luxury-brands-dont-shout",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop"
+      },
+      {
+        title: "The Difference Between Being Visible and Being Positioned",
+        slug: "visible-vs-positioned",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop"
+      }
+    ]
   },
-  "property-management-zanzibar": {
-    title: "Property Management in Zanzibar: What Owners Need to Know",
-    category: "Hospitality",
-    date: "November 20, 2023",
+
+  "visible-vs-positioned": {
+    title: "The Difference Between Being Visible and Being Positioned",
+    category: "Branding",
+    date: "January 28, 2024",
+    readTime: "5 min read",
+    views: "2.5K",
+    isPublished: true,
+    featuredImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop",
+    author: {
+      name: "Authentik Team",
+      role: "Brand Strategists",
+      avatar: "AT"
+    },
+    tableOfContents: [
+      { id: "noise", title: "Visibility Without Positioning Creates Noise" },
+      { id: "what-positioning-does", title: "What Positioning Actually Does" },
+      { id: "why-avoid", title: "Why Many Brands Avoid Positioning" },
+      { id: "perspective", title: "Our Perspective at Authentik" },
+      { id: "takeaway", title: "The Practical Takeaway" }
+    ],
+    content: `
+      <p class="lead">Visibility is easy to measure. Positioning is not. And that's why most brands chase the first and neglect the second. They count followers, impressions, reach, and engagement. Yet still struggle to convert attention into revenue.</p>
+
+      <p>Because visibility answers where you are seen. Positioning answers how you are perceived.</p>
+
+      <h2 id="noise">Visibility Without Positioning Creates Noise</h2>
+      <p>A brand can be everywhere and still mean nothing.</p>
+
+      <p>When positioning is unclear:</p>
+      <ul>
+        <li>Content attracts the wrong audience</li>
+        <li>Inquiries feel misaligned</li>
+        <li>Pricing conversations become uncomfortable</li>
+        <li>Marketing effort increases while impact decreases</li>
+      </ul>
+
+      <p>The brand isn't failing to reach people. It's failing to signal who it is for.</p>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1000&h=600&fit=crop" alt="Brand positioning strategy" />
+        <p class="caption">Clear positioning cuts through the noise and attracts the right audience</p>
+      </div>
+
+      <h2 id="what-positioning-does">What Positioning Actually Does</h2>
+      <p>Positioning creates instant recognition. It allows the right audience to subconsciously decide:</p>
+      <ul>
+        <li>This is for me</li>
+        <li>This understands my level</li>
+        <li>This feels aligned with my values and expectations</li>
+      </ul>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>Strong positioning filters before the first conversation even happens. That's why well-positioned brands receive fewer but better inquiries, spend less time convincing, and close faster.</p>
+      </div>
+
+      <h2 id="why-avoid">Why Many Brands Avoid Positioning</h2>
+      <p>Positioning requires:</p>
+      <ul>
+        <li>Making choices</li>
+        <li>Saying no to certain audiences</li>
+        <li>Letting go of mass appeal</li>
+      </ul>
+
+      <p>This feels risky — especially in emerging or competitive markets. But trying to appeal to everyone is far riskier.</p>
+
+      <blockquote>
+        <p>When a brand refuses to position itself, the market positions it instead — often inaccurately.</p>
+      </blockquote>
+
+      <h2 id="perspective">Our Perspective at Authentik</h2>
+      <p>We don't chase attention. We define context.</p>
+
+      <p>Before growth tactics, we clarify:</p>
+      <ul>
+        <li>Who this brand is not for</li>
+        <li>What this brand does better than most</li>
+        <li>What level of client this brand is built to serve</li>
+      </ul>
+
+      <p>Once positioning is clear, visibility becomes efficient — not exhausting.</p>
+
+      <h2 id="takeaway">The Practical Takeaway</h2>
+      <p>If your brand is visible but struggling to convert, ask: What are we signalling — and to whom?</p>
+
+      <p>Positioning isn't about being louder. It's about being unmistakable.</p>
+
+      <p>At Authentik, we help brands move from being seen to being chosen.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "Why Most Brands Don't Convert — Even With \"Good Marketing\"",
+        slug: "why-brands-dont-convert",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Authenticity Is Not a Vibe — It's a Strategic Advantage",
+        slug: "authenticity-strategic-advantage",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Luxury Brands Don't Shout — Here's What They Do Instead",
+        slug: "luxury-brands-dont-shout",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=250&fit=crop"
+      }
+    ]
+  },
+
+  "luxury-brands-dont-shout": {
+    title: "Luxury Brands Don't Shout — Here's What They Do Instead",
+    category: "Branding",
+    date: "January 22, 2024",
     readTime: "6 min read",
-    views: "3.1K",
-    isPublished: false,
+    views: "3.4K",
+    isPublished: true,
+    featuredImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop",
+    author: {
+      name: "Authentik Team",
+      role: "Brand Strategists",
+      avatar: "AT"
+    },
+    tableOfContents: [
+      { id: "what-makes-luxury", title: "What Makes a Brand Feel \"Luxury\"" },
+      { id: "silence", title: "The Role of Silence in Premium Positioning" },
+      { id: "loud-marketing", title: "Why Loud Marketing Devalues Premium Brands" },
+      { id: "restraint", title: "Strategic Restraint as a Growth Tool" },
+      { id: "approach", title: "Our Approach at Authentik" }
+    ],
+    content: `
+      <p class="lead">In most markets, marketing has become louder. More content. More urgency. More explanations. Luxury brands move in the opposite direction. They don't compete for attention. They control perception.</p>
+
+      <h2 id="what-makes-luxury">What Makes a Brand Feel "Luxury"</h2>
+      <p>Luxury is not price. It is:</p>
+      <ul>
+        <li>Restraint</li>
+        <li>Confidence</li>
+        <li>Intentional absence</li>
+      </ul>
+
+      <p>Luxury brands communicate selectively. They don't explain everything. They don't chase validation. Their message is clear enough to attract the right audience — and quiet enough to repel the wrong one.</p>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1445510861639-5651173bc5d5?w=1000&h=600&fit=crop" alt="Luxury brand positioning" />
+        <p class="caption">Luxury is expressed through intentional restraint and strategic silence</p>
+      </div>
+
+      <h2 id="silence">The Role of Silence in Premium Positioning</h2>
+      <p>Silence creates space. Space allows the audience to project value, curiosity, and desire.</p>
+
+      <p>That's why luxury brands:</p>
+      <ul>
+        <li>Use fewer words</li>
+        <li>Avoid cluttered visuals</li>
+        <li>Resist over-posting</li>
+        <li>Don't justify their pricing</li>
+      </ul>
+
+      <p>They allow the brand experience to speak.</p>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>Over-explaining signals insecurity. Constant selling signals desperation. Excessive visibility signals accessibility — not exclusivity.</p>
+      </div>
+
+      <h2 id="loud-marketing">Why Loud Marketing Devalues Premium Brands</h2>
+      <p>For brands serving high-value clients, loud marketing creates friction. The wrong people engage. The right people disengage quietly.</p>
+
+      <blockquote>
+        <p>Restraint is not absence. It is precision.</p>
+      </blockquote>
+
+      <h2 id="restraint">Strategic Restraint as a Growth Tool</h2>
+      <p>Luxury brands invest heavily in:</p>
+      <ul>
+        <li>Positioning</li>
+        <li>Visual coherence</li>
+        <li>Narrative clarity</li>
+      </ul>
+
+      <p>So they can afford to communicate less — and convert more.</p>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&h=600&fit=crop" alt="Premium brand experience" />
+        <p class="caption">Investment in brand clarity enables strategic communication restraint</p>
+      </div>
+
+      <h2 id="approach">Our Approach at Authentik</h2>
+      <p>We help brands:</p>
+      <ul>
+        <li>Remove excess</li>
+        <li>Refine expression</li>
+        <li>Communicate with intention</li>
+      </ul>
+
+      <p>Not everything needs to be said. Not everyone needs to be addressed. The goal is not attention. The goal is alignment.</p>
+
+      <p>If you want to attract premium clients, don't ask: How do we say more?</p>
+
+      <p>Ask instead: What can we remove without losing meaning?</p>
+
+      <p>Luxury is expressed through clarity — not volume. Authenticity, expressed with restraint, is one of the strongest brand signals there is.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "Authenticity Is Not a Vibe — It's a Strategic Advantage",
+        slug: "authenticity-strategic-advantage",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop"
+      },
+      {
+        title: "The Difference Between Being Visible and Being Positioned",
+        slug: "visible-vs-positioned",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Marketing Isn't Broken — Your Foundation Is",
+        slug: "marketing-foundation",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop"
+      }
+    ]
+  },
+
+  "zanzibar-properties-underperforming": {
+    title: "Why Most Properties in Zanzibar Are Underperforming Online",
+    category: "Hospitality",
+    date: "January 18, 2024",
+    readTime: "6 min read",
+    views: "4.1K",
+    isPublished: true,
     featuredImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1200&h=600&fit=crop",
     author: {
       name: "Authentik Team",
       role: "Property Specialists",
       avatar: "AT"
-    }
+    },
+    tableOfContents: [
+      { id: "listing-not-positioning", title: "Listing Is Not Positioning" },
+      { id: "what-we-see", title: "What We See Repeatedly" },
+      { id: "hidden-cost", title: "The Hidden Cost of Underperformance" },
+      { id: "perspective", title: "Our Perspective at Authentik Homes" },
+      { id: "takeaway", title: "The Practical Takeaway" }
+    ],
+    content: `
+      <p class="lead">Zanzibar has no shortage of beautiful properties. Villas, apartments, beachfront stays — many of them well designed and well located. And yet, a large number of these properties consistently underperform online. The reason is rarely the property itself. It is positioning.</p>
+
+      <h2 id="listing-not-positioning">Listing Is Not Positioning</h2>
+      <p>Most properties are listed. Very few are positioned.</p>
+
+      <p>A listing shows:</p>
+      <ul>
+        <li>Photos</li>
+        <li>Amenities</li>
+        <li>Price</li>
+        <li>Availability</li>
+      </ul>
+
+      <p>Positioning communicates:</p>
+      <ul>
+        <li>Experience</li>
+        <li>Intent</li>
+        <li>Audience</li>
+        <li>Value</li>
+      </ul>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>Without positioning, properties compete on price and availability — not desire.</p>
+      </div>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1000&h=600&fit=crop" alt="Zanzibar luxury property" />
+        <p class="caption">Beautiful properties need strategic positioning to convert views into bookings</p>
+      </div>
+
+      <h2 id="what-we-see">What We See Repeatedly</h2>
+      <p>Across Zanzibar, many properties:</p>
+      <ul>
+        <li>Look similar online</li>
+        <li>Use generic descriptions</li>
+        <li>Rely on standard Airbnb templates</li>
+        <li>Assume beauty alone will convert</li>
+      </ul>
+
+      <p>Beauty attracts attention. Context drives booking.</p>
+
+      <p>When a guest cannot immediately understand:</p>
+      <ul>
+        <li>Who the property is for</li>
+        <li>What kind of stay it offers</li>
+        <li>Why it is worth choosing</li>
+      </ul>
+
+      <p>They move on.</p>
+
+      <h2 id="hidden-cost">The Hidden Cost of Underperformance</h2>
+      <p>Underperforming properties often experience:</p>
+      <ul>
+        <li>Irregular occupancy</li>
+        <li>Seasonal dependency</li>
+        <li>Discount-driven bookings</li>
+        <li>Higher guest friction</li>
+      </ul>
+
+      <p>This leads owners to believe the market is "slow" or "oversaturated." In reality, the property is simply miscommunicated.</p>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1000&h=600&fit=crop" alt="Property management strategy" />
+        <p class="caption">Strategic communication transforms property performance</p>
+      </div>
+
+      <h2 id="perspective">Our Perspective at Authentik Homes</h2>
+      <p>We treat property as a brand and a business, not a listing.</p>
+
+      <p>That means:</p>
+      <ul>
+        <li>Clarifying the experience being sold</li>
+        <li>Styling and furnishing with intention</li>
+        <li>Positioning the stay, not just the space</li>
+        <li>Managing guest experience end-to-end</li>
+      </ul>
+
+      <blockquote>
+        <p>When positioning is clear, bookings become more consistent — without racing to the bottom on price.</p>
+      </blockquote>
+
+      <h2 id="takeaway">The Practical Takeaway</h2>
+      <p>If your property is beautiful but underperforming, ask: What experience are we actually selling — and to whom?</p>
+
+      <p>In Zanzibar, visibility is abundant. Differentiation is rare.</p>
+
+      <p>At Authentik Homes, we help property owners move from listings to assets.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "From Listings to Assets: Treating Property as a Business",
+        slug: "listings-to-assets",
+        category: "Hospitality",
+        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop"
+      },
+      {
+        title: "WhatsApp Is the Most Underutilized Conversion Tool in East Africa",
+        slug: "whatsapp-conversion-tool",
+        category: "Growth",
+        image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&h=250&fit=crop"
+      },
+      {
+        title: "The Difference Between Being Visible and Being Positioned",
+        slug: "visible-vs-positioned",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop"
+      }
+    ]
   },
-  "authenticity-growth-strategy": {
-    title: "Authenticity as a Growth Strategy",
+
+  "whatsapp-conversion-tool": {
+    title: "WhatsApp Is the Most Underutilized Conversion Tool in East Africa",
     category: "Growth",
-    date: "October 15, 2023",
-    readTime: "7 min read",
-    views: "4.2K",
-    isPublished: false,
-    featuredImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop",
+    date: "January 12, 2024",
+    readTime: "5 min read",
+    views: "3.6K",
+    isPublished: true,
+    featuredImage: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=1200&h=600&fit=crop",
     author: {
       name: "Authentik Team",
       role: "Growth Strategists",
       avatar: "AT"
-    }
+    },
+    tableOfContents: [
+      { id: "problem", title: "The Problem With Manual WhatsApp Communication" },
+      { id: "why-outperforms", title: "Why WhatsApp Outperforms Most Channels" },
+      { id: "automation", title: "Automation Does Not Mean Losing the Human Touch" },
+      { id: "what-we-see", title: "What We See at Authentik" },
+      { id: "takeaway", title: "The Practical Takeaway" }
+    ],
+    content: `
+      <p class="lead">In East Africa, WhatsApp is not just a messaging app. It is where business happens, decisions are made, and trust is built. And yet, most brands treat WhatsApp as an afterthought.</p>
+
+      <h2 id="problem">The Problem With Manual WhatsApp Communication</h2>
+      <p>Most businesses rely on:</p>
+      <ul>
+        <li>Delayed replies</li>
+        <li>Inconsistent responses</li>
+        <li>Missed messages</li>
+        <li>Overloaded teams</li>
+      </ul>
+
+      <p>Leads are interested — then ignored. Momentum is lost before conversations even begin.</p>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>In high-intent markets, speed and clarity matter more than persuasion.</p>
+      </div>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1000&h=600&fit=crop" alt="WhatsApp business communication" />
+        <p class="caption">Strategic WhatsApp automation preserves the human touch while ensuring consistency</p>
+      </div>
+
+      <h2 id="why-outperforms">Why WhatsApp Outperforms Most Channels</h2>
+      <p>WhatsApp:</p>
+      <ul>
+        <li>Feels personal</li>
+        <li>Is already trusted</li>
+        <li>Removes friction</li>
+        <li>Shortens decision cycles</li>
+      </ul>
+
+      <p>But only when used intentionally. Without structure, WhatsApp becomes chaotic. With structure, it becomes one of the highest-converting tools available.</p>
+
+      <h2 id="automation">Automation Does Not Mean Losing the Human Touch</h2>
+      <p>Well-designed WhatsApp automation:</p>
+      <ul>
+        <li>Responds instantly</li>
+        <li>Qualifies inquiries</li>
+        <li>Routes leads correctly</li>
+        <li>Sets expectations</li>
+      </ul>
+
+      <blockquote>
+        <p>This doesn't replace humans. It protects them. Automation handles the repetitive. Humans handle the meaningful.</p>
+      </blockquote>
+
+      <h2 id="what-we-see">What We See at Authentik</h2>
+      <p>Brands often invest heavily in:</p>
+      <ul>
+        <li>Ads</li>
+        <li>Content</li>
+        <li>Influencers</li>
+      </ul>
+
+      <p>But lose conversions because:</p>
+      <ul>
+        <li>Responses are slow</li>
+        <li>Follow-ups are inconsistent</li>
+        <li>Leads fall through gaps</li>
+      </ul>
+
+      <p>WhatsApp automation closes that gap.</p>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1000&h=600&fit=crop" alt="Customer communication strategy" />
+        <p class="caption">Efficient communication systems turn interest into conversion</p>
+      </div>
+
+      <h2 id="takeaway">The Practical Takeaway</h2>
+      <p>If your business receives inquiries on WhatsApp, ask: How many potential clients are we losing before the first response?</p>
+
+      <p>Automation is not about efficiency alone. It is about respecting intent.</p>
+
+      <p>At Authentik, we design WhatsApp systems that turn interest into conversation — and conversation into conversion.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "Marketing Isn't Broken — Your Foundation Is",
+        slug: "marketing-foundation",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Why Most Brands Don't Convert — Even With \"Good Marketing\"",
+        slug: "why-brands-dont-convert",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop"
+      },
+      {
+        title: "From Listings to Assets: Treating Property as a Business",
+        slug: "listings-to-assets",
+        category: "Hospitality",
+        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=250&fit=crop"
+      }
+    ]
+  },
+
+  "marketing-foundation": {
+    title: "Marketing Isn't Broken — Your Foundation Is",
+    category: "Strategy",
+    date: "January 8, 2024",
+    readTime: "6 min read",
+    views: "3.8K",
+    isPublished: true,
+    featuredImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop",
+    author: {
+      name: "Authentik Team",
+      role: "Brand Strategists",
+      avatar: "AT"
+    },
+    tableOfContents: [
+      { id: "scapegoat", title: "When Marketing Becomes a Scapegoat" },
+      { id: "weak-foundation", title: "What a Weak Foundation Looks Like" },
+      { id: "why-tactics-fail", title: "Why More Tactics Don't Solve Structural Problems" },
+      { id: "perspective", title: "Our Perspective at Authentik" },
+      { id: "takeaway", title: "The Practical Takeaway" }
+    ],
+    content: `
+      <p class="lead">Marketing is often blamed when growth stalls. Ads aren't converting. Content isn't landing. Campaigns feel expensive with little return. The instinctive reaction is to change tactics. But marketing rarely fails on its own.</p>
+
+      <h2 id="scapegoat">When Marketing Becomes a Scapegoat</h2>
+      <p>What we observe again and again is this: Brands invest in marketing before they invest in foundations.</p>
+
+      <p>They attempt to amplify without first stabilizing:</p>
+      <ul>
+        <li>Identity</li>
+        <li>Positioning</li>
+        <li>Clarity of offer</li>
+        <li>Alignment between promise and experience</li>
+      </ul>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>Marketing then exposes these gaps instead of fixing them. Marketing does not correct confusion. It multiplies it.</p>
+      </div>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1000&h=600&fit=crop" alt="Brand foundation strategy" />
+        <p class="caption">Strong foundations make marketing efficient and effective</p>
+      </div>
+
+      <h2 id="weak-foundation">What a Weak Foundation Looks Like</h2>
+      <p>Brands with fragile foundations often show up as:</p>
+      <ul>
+        <li>Inconsistent messaging across platforms</li>
+        <li>Conflicting visual identity</li>
+        <li>Unclear value propositions</li>
+        <li>Offers that are difficult to explain or justify</li>
+      </ul>
+
+      <h2 id="why-tactics-fail">Why More Tactics Don't Solve Structural Problems</h2>
+      <p>No amount of:</p>
+      <ul>
+        <li>Content</li>
+        <li>Advertising</li>
+        <li>Influencers</li>
+        <li>Automation</li>
+      </ul>
+
+      <p>Can compensate for a brand that hasn't clearly defined:</p>
+      <ul>
+        <li>What it stands for</li>
+        <li>Who it serves</li>
+        <li>Why it deserves attention at its price point</li>
+      </ul>
+
+      <blockquote>
+        <p>Without this clarity, marketing becomes exhausting and reactive.</p>
+      </blockquote>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1552664688-cf412ec27db2?w=1000&h=600&fit=crop" alt="Strategic brand alignment" />
+        <p class="caption">Alignment between strategy, identity, and execution creates marketing momentum</p>
+      </div>
+
+      <h2 id="perspective">Our Perspective at Authentik</h2>
+      <p>We approach marketing as the last layer, not the first.</p>
+
+      <p>Before growth, we assess:</p>
+      <ul>
+        <li>Strategic clarity</li>
+        <li>Brand expression</li>
+        <li>Market fit</li>
+        <li>Internal alignment</li>
+      </ul>
+
+      <p>When the foundation is strong, marketing becomes efficient — sometimes surprisingly so.</p>
+
+      <h2 id="takeaway">The Practical Takeaway</h2>
+      <p>If marketing feels like hard work, ask: What is marketing revealing about our foundation?</p>
+
+      <p>Fix the foundation. Marketing will follow.</p>
+
+      <p>At Authentik, we don't patch symptoms. We strengthen structures.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "Why Most Brands Don't Convert — Even With \"Good Marketing\"",
+        slug: "why-brands-dont-convert",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Authenticity Is Not a Vibe — It's a Strategic Advantage",
+        slug: "authenticity-strategic-advantage",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop"
+      },
+      {
+        title: "The Difference Between Being Visible and Being Positioned",
+        slug: "visible-vs-positioned",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop"
+      }
+    ]
+  },
+
+  "listings-to-assets": {
+    title: "From Listings to Assets: Treating Property as a Business",
+    category: "Hospitality",
+    date: "January 3, 2024",
+    readTime: "7 min read",
+    views: "4.3K",
+    isPublished: true,
+    featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop",
+    author: {
+      name: "Authentik Team",
+      role: "Property Specialists",
+      avatar: "AT"
+    },
+    tableOfContents: [
+      { id: "passive-vs-managed", title: "A Listing Is Passive. An Asset Is Managed." },
+      { id: "why-plateau", title: "Why Many Properties Plateau" },
+      { id: "asset-thinking", title: "Asset Thinking Changes Everything" },
+      { id: "approach", title: "Our Approach at Authentik Homes" },
+      { id: "takeaway", title: "The Practical Takeaway" }
+    ],
+    content: `
+      <p class="lead">Many property owners think they are in hospitality. In reality, they are in asset management — whether they realize it or not. The difference between a listing and an asset is intention.</p>
+
+      <h2 id="passive-vs-managed">A Listing Is Passive. An Asset Is Managed.</h2>
+      <p>Listings:</p>
+      <ul>
+        <li>Exist online</li>
+        <li>Depend on seasonality</li>
+        <li>Compete on price</li>
+      </ul>
+
+      <p>Assets:</p>
+      <ul>
+        <li>Are positioned</li>
+        <li>Are maintained with strategy</li>
+        <li>Are optimized over time</li>
+      </ul>
+
+      <div class="callout-box">
+        <h4>Key Insight</h4>
+        <p>The same property can be either — depending on how it is treated.</p>
+      </div>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1000&h=600&fit=crop" alt="Property asset management" />
+        <p class="caption">Strategic asset management transforms properties into predictable income sources</p>
+      </div>
+
+      <h2 id="why-plateau">Why Many Properties Plateau</h2>
+      <p>Properties often start strong, then stagnate. This happens when:</p>
+      <ul>
+        <li>Guest experience is not actively managed</li>
+        <li>Visual presentation remains static</li>
+        <li>Listings are not refined over time</li>
+        <li>Maintenance becomes reactive instead of proactive</li>
+      </ul>
+
+      <p>Without strategy, performance naturally declines.</p>
+
+      <h2 id="asset-thinking">Asset Thinking Changes Everything</h2>
+      <p>When property is treated as a business:</p>
+      <ul>
+        <li>Furnishing is intentional, not decorative</li>
+        <li>Pricing is strategic, not reactive</li>
+        <li>Guest communication is systemized</li>
+        <li>Experience becomes the differentiator</li>
+      </ul>
+
+      <blockquote>
+        <p>This mindset shift alone often improves performance — before any major investment.</p>
+      </blockquote>
+
+      <div class="image-block">
+        <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1000&h=600&fit=crop" alt="Strategic property positioning" />
+        <p class="caption">Intentional positioning and management drive consistent performance</p>
+      </div>
+
+      <h2 id="approach">Our Approach at Authentik Homes</h2>
+      <p>We help property owners:</p>
+      <ul>
+        <li>See their property as an income-generating asset</li>
+        <li>Position it intentionally in the market</li>
+        <li>Maintain it as a brand experience</li>
+        <li>Optimize it continuously</li>
+      </ul>
+
+      <p>Not through volume — through clarity and care.</p>
+
+      <h2 id="takeaway">The Practical Takeaway</h2>
+      <p>If your property income feels unpredictable, ask: Are we managing a listing — or building an asset?</p>
+
+      <p>Assets compound. Listings fluctuate.</p>
+
+      <p>At Authentik Homes, we help owners build assets, not just bookings.</p>
+    `,
+    relatedArticles: [
+      {
+        title: "Why Most Properties in Zanzibar Are Underperforming Online",
+        slug: "zanzibar-properties-underperforming",
+        category: "Hospitality",
+        image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&h=250&fit=crop"
+      },
+      {
+        title: "The Difference Between Being Visible and Being Positioned",
+        slug: "visible-vs-positioned",
+        category: "Branding",
+        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop"
+      },
+      {
+        title: "Marketing Isn't Broken — Your Foundation Is",
+        slug: "marketing-foundation",
+        category: "Strategy",
+        image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=250&fit=crop"
+      }
+    ]
   }
 };
 
 const TableOfContents = ({ items, activeId }) => {
   return (
     <div className="hidden lg:block sticky top-24">
-      <div className="bg-[#DADFDB] rounded-2xl p-6">
-        <h4 className="font-serif text-lg font-semibold text-[#194C4C] mb-4">
-          Table of Contents
-        </h4>
+      <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-[#DADFDB]">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-xl flex items-center justify-center shadow-md">
+            <BookOpen className="w-5 h-5 text-white" />
+          </div>
+          <h4 className="font-serif text-lg font-semibold text-[#194C4C]">
+            In This Article
+          </h4>
+        </div>
         <nav>
           <ul className="space-y-2">
-            {items.map((item) => (
+            {items.map((item, index) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className={`block text-sm py-2 px-3 rounded-lg transition-all duration-300 ${
+                  className={`flex items-center gap-3 text-sm py-3 px-4 rounded-xl transition-all duration-300 ${
                     activeId === item.id
-                      ? "bg-[#3A9387] text-white font-semibold"
-                      : "text-[#194C4C]/70 hover:bg-white hover:text-[#3A9387]"
+                      ? "bg-gradient-to-r from-[#3A9387] to-[#194C4C] text-white font-semibold shadow-md transform scale-105"
+                      : "text-[#194C4C]/70 hover:bg-[#DADFDB]/50 hover:text-[#3A9387] hover:translate-x-1"
                   }`}
                 >
-                  {item.title}
+                  <span className={`flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold transition-all ${
+                    activeId === item.id ? "bg-white/20" : "bg-[#DADFDB] text-[#3A9387]"
+                  }`}>
+                    {index + 1}
+                  </span>
+                  <span className="flex-1 leading-tight">{item.title}</span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
+
+        {/* Quick Actions */}
+        <div className="mt-8 pt-6 border-t-2 border-[#DADFDB]">
+          <p className="text-xs font-semibold text-[#194C4C]/60 uppercase tracking-wider mb-3">
+            Quick Actions
+          </p>
+          <div className="space-y-2">
+            <button className="w-full flex items-center gap-3 text-sm py-3 px-4 rounded-xl text-[#194C4C]/70 hover:bg-[#3A9387]/10 hover:text-[#3A9387] transition-all">
+              <Share2 className="w-4 h-4" />
+              <span>Share Article</span>
+            </button>
+            <button className="w-full flex items-center gap-3 text-sm py-3 px-4 rounded-xl text-[#194C4C]/70 hover:bg-[#F79120]/10 hover:text-[#F79120] transition-all">
+              <Bookmark className="w-4 h-4" />
+              <span>Save for Later</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -225,7 +1041,7 @@ const ReadingProgress = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-1 bg-[#DADFDB] z-50">
       <div 
-        className="h-full bg-gradient-to-r from-[#3A9387] to-[#F79120] transition-all duration-300"
+        className="h-full bg-gradient-to-r from-[#3A9387] via-[#F79120] to-[#E17C47] transition-all duration-300 shadow-lg"
         style={{ width: `${progress}%` }}
       />
     </div>
@@ -264,6 +1080,9 @@ const InsightArticle = () => {
         <SectionWrapper>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center py-20">
+              <div className="w-24 h-24 bg-[#DADFDB] rounded-full flex items-center justify-center mx-auto mb-6">
+                <Eye className="w-12 h-12 text-[#194C4C]/40" />
+              </div>
               <h1 className="font-serif text-4xl font-semibold text-[#194C4C] mb-4">
                 Article Not Found
               </h1>
@@ -272,7 +1091,7 @@ const InsightArticle = () => {
               </p>
               <Link
                 to="/insights"
-                className="inline-flex items-center gap-2 text-[#3A9387] hover:text-[#E17C47] font-semibold"
+                className="inline-flex items-center gap-2 bg-[#3A9387] hover:bg-[#194C4C] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Insights
@@ -293,14 +1112,14 @@ const InsightArticle = () => {
             <div className="max-w-4xl mx-auto">
               <Link
                 to="/insights"
-                className="inline-flex items-center gap-2 text-sm sm:text-base text-[#3A9387] hover:text-[#E17C47] font-semibold mb-8 transition-colors group"
+                className="inline-flex items-center gap-2 text-sm sm:text-base text-[#3A9387] hover:text-[#E17C47] font-semibold mb-8 transition-all group bg-[#3A9387]/10 hover:bg-[#E17C47]/10 px-4 py-2 rounded-full"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 Back to Insights
               </Link>
 
               {/* Featured Image */}
-              <div className="rounded-3xl overflow-hidden mb-8 shadow-xl">
+              <div className="rounded-3xl overflow-hidden mb-8 shadow-2xl">
                 <img 
                   src={article.featuredImage} 
                   alt={article.title}
@@ -308,53 +1127,53 @@ const InsightArticle = () => {
                 />
               </div>
 
-              <div className="bg-white rounded-3xl p-8 md:p-12 lg:p-16 text-center shadow-xl border-2 border-[#DADFDB]">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-[#F79120]/10 rounded-full mb-6">
-                  <i className="fas fa-pen-fancy text-3xl text-[#F79120]"></i>
+              <div className="bg-gradient-to-br from-white via-[#DADFDB]/20 to-white rounded-3xl p-8 md:p-12 lg:p-16 text-center shadow-2xl border-2 border-[#DADFDB]">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#F79120] to-[#E17C47] rounded-2xl mb-6 shadow-lg">
+                  <Lightbulb className="w-10 h-10 text-white" />
                 </div>
                 
-                <span className="inline-block px-4 py-2 bg-[#F79120] text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-6">
+                <span className="inline-block px-5 py-2.5 bg-gradient-to-r from-[#F79120] to-[#E17C47] text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-6 shadow-md">
                   Coming Soon
                 </span>
 
-                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[#194C4C] mb-6">
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[#194C4C] mb-6 leading-tight">
                   {article.title}
                 </h1>
 
                 <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
-                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60">
-                    <Tag className="w-4 h-4" />
+                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60 bg-white px-4 py-2 rounded-full shadow-sm">
+                    <Tag className="w-4 h-4 text-[#3A9387]" />
                     {article.category}
                   </span>
-                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60">
-                    <Clock className="w-4 h-4" />
+                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60 bg-white px-4 py-2 rounded-full shadow-sm">
+                    <Clock className="w-4 h-4 text-[#F79120]" />
                     {article.readTime}
                   </span>
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#3A9387]">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#3A9387] bg-[#3A9387]/10 px-4 py-2 rounded-full">
                     <Eye className="w-4 h-4" />
                     {article.views} views
                   </span>
                 </div>
 
-                <p className="text-lg text-[#194C4C]/70 mb-8 max-w-2xl mx-auto">
+                <p className="text-lg text-[#194C4C]/70 mb-10 max-w-2xl mx-auto leading-relaxed">
                   This article is currently being written by our team. Check back soon for valuable insights on this topic.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     to="/insights"
-                    className="inline-flex items-center justify-center gap-2 bg-[#3A9387] hover:bg-[#194C4C] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
+                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#3A9387] to-[#194C4C] hover:from-[#194C4C] hover:to-[#3A9387] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
                   >
+                    <TrendingUp className="w-5 h-5" />
                     Browse Other Articles
-                    <i className="fas fa-arrow-right"></i>
                   </Link>
                   <a
                     href="https://wa.me/255777296026"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
+                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
                   >
-                    <i className="fab fa-whatsapp"></i>
+                    <MessageCircle className="w-5 h-5" />
                     Ask Us Anything
                   </a>
                 </div>
@@ -378,7 +1197,7 @@ const InsightArticle = () => {
           alt={article.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#194C4C]/95 via-[#194C4C]/70 to-[#194C4C]/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#194C4C] via-[#194C4C]/80 to-transparent"></div>
         
         {/* Title Overlay */}
         <div className="relative h-full flex items-end">
@@ -387,18 +1206,18 @@ const InsightArticle = () => {
               <div className="max-w-5xl">
                 <Link
                   to="/insights"
-                  className="inline-flex items-center gap-2 text-sm sm:text-base text-white/90 hover:text-white font-semibold mb-6 sm:mb-8 transition-colors group"
+                  className="inline-flex items-center gap-2 text-sm sm:text-base text-white/90 hover:text-white font-semibold mb-6 sm:mb-8 transition-all group bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full hover:bg-white/20"
                 >
                   <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                   Back to Insights
                 </Link>
                 
-                <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#F79120] bg-[#F79120]/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6 sm:mb-8">
+                <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-white bg-gradient-to-r from-[#F79120] to-[#E17C47] backdrop-blur-sm px-5 py-2.5 rounded-full mb-6 sm:mb-8 shadow-lg">
                   <Tag className="w-4 h-4" />
                   {article.category}
-                </span>
+                </div>
                 
-                <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white leading-[1.2] sm:leading-tight max-w-4xl">
+                <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white leading-[1.2] sm:leading-tight max-w-4xl drop-shadow-2xl">
                   {article.title}
                 </h1>
               </div>
@@ -413,54 +1232,59 @@ const InsightArticle = () => {
           <div className="max-w-7xl mx-auto">
             {/* Meta Bar */}
             <div className="max-w-4xl mx-auto mb-12">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b-2 border-[#DADFDB]">
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-[#3A9387] rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold text-lg">{article.author.avatar}</span>
+              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-[#DADFDB]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  {/* Author */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-2xl flex items-center justify-center shadow-md">
+                      <span className="text-white font-semibold text-lg">{article.author.avatar}</span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-base text-[#194C4C]">{article.author.name}</p>
+                      <p className="text-sm text-[#194C4C]/60">{article.author.role}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-base text-[#194C4C]">{article.author.name}</p>
-                    <p className="text-sm text-[#194C4C]/60">{article.author.role}</p>
+
+                  {/* Stats */}
+                  <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                    <span className="flex items-center gap-2 text-sm text-[#194C4C]/60">
+                      <Calendar className="w-4 h-4 text-[#3A9387]" />
+                      {article.date}
+                    </span>
+                    <span className="flex items-center gap-2 text-sm text-[#194C4C]/60">
+                      <Clock className="w-4 h-4 text-[#F79120]" />
+                      {article.readTime}
+                    </span>
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#3A9387] bg-[#3A9387]/10 px-3 py-1.5 rounded-full">
+                      <Eye className="w-4 h-4" />
+                      {article.views}
+                    </span>
                   </div>
                 </div>
 
-                {/* Stats */}
-                <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-                  <span className="flex items-center gap-2 text-sm text-[#194C4C]/60">
-                    <Calendar className="w-4 h-4" />
-                    {article.date}
-                  </span>
-                  <span className="flex items-center gap-2 text-sm text-[#194C4C]/60">
-                    <Clock className="w-4 h-4" />
-                    {article.readTime}
-                  </span>
-                  <span className="flex items-center gap-2 text-sm font-semibold text-[#3A9387]">
-                    <Eye className="w-4 h-4" />
-                    {article.views} views
-                  </span>
-                </div>
-              </div>
-
-              {/* Share Bar */}
-              <div className="flex items-center justify-between mt-8">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-[#194C4C]/60">Share:</span>
-                  <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-full flex items-center justify-center transition-all duration-300 group">
-                    <Twitter className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
-                  </button>
-                  <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-full flex items-center justify-center transition-all duration-300 group">
-                    <Linkedin className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
-                  </button>
-                  <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-full flex items-center justify-center transition-all duration-300 group">
-                    <Facebook className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                {/* Share Bar */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-6 pt-6 border-t-2 border-[#DADFDB]">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-semibold text-[#194C4C]/70">Share:</span>
+                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
+                      <Twitter className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    </button>
+                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
+                      <Linkedin className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    </button>
+                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
+                      <Facebook className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    </button>
+                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#F79120] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
+                      <Mail className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    </button>
+                  </div>
+                  
+                  <button className="flex items-center gap-2 text-sm font-semibold text-[#3A9387] hover:text-[#E17C47] transition-colors bg-[#3A9387]/10 hover:bg-[#E17C47]/10 px-4 py-2 rounded-full">
+                    <Bookmark className="w-4 h-4" />
+                    <span>Save Article</span>
                   </button>
                 </div>
-                
-                <button className="flex items-center gap-2 text-sm font-semibold text-[#3A9387] hover:text-[#E17C47] transition-colors">
-                  <Bookmark className="w-4 h-4" />
-                  <span className="hidden sm:inline">Save for Later</span>
-                </button>
               </div>
             </div>
 
@@ -475,18 +1299,24 @@ const InsightArticle = () => {
 
                 {/* Tags */}
                 <div className="mt-12 pt-8 border-t-2 border-[#DADFDB]">
-                  <p className="text-sm font-semibold text-[#194C4C]/60 uppercase tracking-wider mb-4">
-                    Topics
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-2 bg-[#DADFDB] text-[#194C4C] text-sm font-medium rounded-full">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Tag className="w-5 h-5 text-[#3A9387]" />
+                    <p className="text-sm font-semibold text-[#194C4C] uppercase tracking-wider">
+                      Related Topics
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
                       {article.category}
                     </span>
-                    <span className="px-4 py-2 bg-[#DADFDB] text-[#194C4C] text-sm font-medium rounded-full">
+                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
                       Brand Strategy
                     </span>
-                    <span className="px-4 py-2 bg-[#DADFDB] text-[#194C4C] text-sm font-medium rounded-full">
+                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
                       Marketing
+                    </span>
+                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
+                      Growth
                     </span>
                   </div>
                 </div>
@@ -506,34 +1336,40 @@ const InsightArticle = () => {
       {/* CTA Section */}
       <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-[#3A9387] rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-16 text-center shadow-2xl">
-              <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full mb-6 sm:mb-8">
-                <i className="fas fa-comments text-3xl sm:text-4xl text-[#F79120]"></i>
-              </div>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-4 sm:mb-6">
-                Ready to Transform Your Brand?
-              </h2>
-              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-                Let's discuss your brand strategy and create something authentic that drives real growth.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-3 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
-                >
-                  <span>Book a Strategy Call</span>
-                  <i className="fas fa-arrow-right"></i>
-                </Link>
-                <a
-                  href="https://wa.me/255777296026"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
-                >
-                  <i className="fab fa-whatsapp text-xl"></i>
-                  WhatsApp Us
-                </a>
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-gradient-to-br from-[#3A9387] via-[#194C4C] to-[#194C4C] rounded-3xl p-8 sm:p-10 md:p-16 text-center shadow-2xl relative overflow-hidden">
+              {/* Decorative Elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#F79120]/10 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3A9387]/20 rounded-full blur-3xl"></div>
+              
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-8 shadow-lg">
+                  <Target className="w-10 h-10 text-[#F79120]" />
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white mb-6 leading-tight">
+                  Ready to Transform Your Brand?
+                </h2>
+                <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+                  Let's discuss your brand strategy and create something authentic that drives real growth.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#F79120] to-[#E17C47] hover:from-[#E17C47] hover:to-[#F79120] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-xl"
+                  >
+                    <Calendar className="w-5 h-5" />
+                    <span>Book a Strategy Call</span>
+                  </Link>
+                  <a
+                    href="https://wa.me/255777296026"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 border-2 border-white/30 shadow-xl"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    <span>WhatsApp Us</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -545,36 +1381,53 @@ const InsightArticle = () => {
         <SectionWrapper>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-[#194C4C] mb-8 sm:mb-12 text-center">
-                Related Articles
-              </h2>
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-[#3A9387]/10 rounded-xl flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-[#3A9387]" />
+                  </div>
+                  <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[#194C4C]">
+                    Continue Reading
+                  </h2>
+                </div>
+                <p className="text-lg text-[#194C4C]/70 max-w-2xl mx-auto">
+                  Explore more insights to help you build a stronger brand
+                </p>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 {article.relatedArticles.map((related, index) => (
                   <Link
                     key={related.slug}
                     to={`/insights/${related.slug}`}
-                    className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#3A9387] transform hover:-translate-y-2"
+                    className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border-2 border-[#DADFDB] hover:border-[#3A9387] transform hover:-translate-y-2"
                     style={{
                       animationDelay: `${index * 0.1}s`,
                       opacity: 0,
                       animation: 'fadeInUp 0.6s ease-out forwards'
                     }}
                   >
-                    <div className="aspect-video overflow-hidden">
+                    <div className="aspect-video overflow-hidden relative">
                       <img 
                         src={related.image} 
                         alt={related.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
+                      <div className="absolute top-4 left-4">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-white bg-[#3A9387] backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+                          <Tag className="w-3 h-3" />
+                          {related.category}
+                        </span>
+                      </div>
                     </div>
                     <div className="p-6">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#3A9387] bg-[#3A9387]/10 px-3 py-1.5 rounded-full mb-3">
-                        <Tag className="w-3 h-3" />
-                        {related.category}
-                      </span>
-                      <h3 className="font-serif text-lg sm:text-xl font-semibold text-[#194C4C] group-hover:text-[#3A9387] transition-colors leading-snug">
+                      <h3 className="font-serif text-xl font-semibold text-[#194C4C] group-hover:text-[#3A9387] transition-colors leading-snug mb-3">
                         {related.title}
                       </h3>
+                      <div className="flex items-center gap-2 text-sm text-[#3A9387] font-semibold">
+                        <span>Read Article</span>
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      </div>
                     </div>
                   </Link>
                 ))}
@@ -607,6 +1460,8 @@ const InsightArticle = () => {
           opacity: 0.9;
           margin-bottom: 3rem;
           font-weight: 500;
+          padding-left: 1.5rem;
+          border-left: 4px solid #3A9387;
         }
 
         .article-content h2 {
@@ -655,26 +1510,37 @@ const InsightArticle = () => {
           font-style: italic;
         }
 
-        .article-content ol,
         .article-content ul {
           margin-bottom: 2.5rem;
-          padding-left: 2rem;
+          padding-left: 0;
+          list-style: none;
         }
 
-        .article-content li {
+        .article-content ul li {
           font-size: 1.25rem;
           line-height: 1.9;
           margin-bottom: 1rem;
           color: #194C4C;
           opacity: 0.85;
+          padding-left: 2rem;
+          position: relative;
+        }
+
+        .article-content ul li:before {
+          content: "→";
+          position: absolute;
+          left: 0;
+          color: #3A9387;
+          font-weight: 600;
         }
 
         .article-content blockquote {
           border-left: 5px solid #F79120;
-          background: #DADFDB;
+          background: linear-gradient(135deg, #DADFDB 0%, #F5F5F5 100%);
           padding: 2rem 2.5rem;
           margin: 3.5rem 0;
           border-radius: 0 1.25rem 1.25rem 0;
+          box-shadow: 0 5px 20px rgba(25, 76, 76, 0.08);
         }
 
         .article-content blockquote p {
@@ -694,6 +1560,7 @@ const InsightArticle = () => {
           width: 100%;
           border-radius: 1.5rem;
           margin-bottom: 1rem;
+          box-shadow: 0 10px 40px rgba(25, 76, 76, 0.1);
         }
 
         .article-content .caption {
@@ -711,6 +1578,7 @@ const InsightArticle = () => {
           padding: 2rem 2.5rem;
           border-radius: 1.5rem;
           margin: 3rem 0;
+          box-shadow: 0 10px 30px rgba(58, 147, 135, 0.2);
         }
 
         .article-content .callout-box h4 {
@@ -726,85 +1594,10 @@ const InsightArticle = () => {
           margin: 0;
         }
 
-        .article-content .process-steps {
-          display: grid;
-          gap: 2rem;
-          margin: 2.5rem 0;
-        }
-
-        .article-content .step-item {
-          display: flex;
-          gap: 1.5rem;
-          padding: 2rem;
-          background: white;
-          border: 2px solid #DADFDB;
-          border-radius: 1.25rem;
-          transition: all 0.3s ease;
-        }
-
-        .article-content .step-item:hover {
-          border-color: #3A9387;
-          transform: translateY(-4px);
-          box-shadow: 0 10px 30px rgba(58, 147, 135, 0.1);
-        }
-
-        .article-content .step-icon {
-          flex-shrink: 0;
-          width: 3.5rem;
-          height: 3.5rem;
-          background: linear-gradient(135deg, #3A9387 0%, #194C4C 100%);
-          border-radius: 1rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-size: 1.5rem;
-        }
-
-        .article-content .step-content h4 {
-          font-size: 1.375rem;
-          font-weight: 600;
-          color: #194C4C;
-          margin: 0 0 0.75rem 0;
-        }
-
-        .article-content .step-content p {
-          font-size: 1.125rem;
-          line-height: 1.8;
-          color: #194C4C;
-          opacity: 0.85;
-          margin: 0;
-        }
-
-        @media (max-width: 640px) {
-          .article-content .process-steps {
-            gap: 1.5rem;
-          }
-
-          .article-content .step-item {
-            flex-direction: column;
-            padding: 1.5rem;
-            gap: 1rem;
-          }
-
-          .article-content .step-icon {
-            width: 3rem;
-            height: 3rem;
-            font-size: 1.25rem;
-          }
-
-          .article-content .step-content h4 {
-            font-size: 1.25rem;
-          }
-
-          .article-content .step-content p {
-            font-size: 1rem;
-          }
-        }
-
         @media (max-width: 640px) {
           .article-content .lead {
             font-size: 1.125rem;
+            padding-left: 1rem;
           }
 
           .article-content h2 {
@@ -821,6 +1614,10 @@ const InsightArticle = () => {
           .article-content li {
             font-size: 1.0625rem;
             margin-bottom: 1.5rem;
+          }
+
+          .article-content ul li {
+            padding-left: 1.5rem;
           }
 
           .article-content blockquote {

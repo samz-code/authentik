@@ -10,68 +10,90 @@ const categories = ["All", "Branding", "Strategy", "Hospitality", "Growth"];
 const insights = [
   {
     id: 1,
-    title: "Why Most Rebrands Fail (And How to Make Yours Succeed)",
+    title: 'Why Most Brands Don\'t Convert — Even With "Good Marketing"',
     excerpt:
-      "Rebranding is more than a new logo. It's a strategic realignment of who you are, who you serve, and how you show up. Here's why most get it wrong.",
-    category: "Branding",
-    date: "January 2024",
-    readTime: "5 min read",
-    slug: "why-most-rebrands-fail",
+      "Most brands post consistently, run ads, and have a social presence. Yet conversion remains low. The problem isn't effort — it's alignment.",
+    category: "Strategy",
+    date: "February 2024",
+    readTime: "6 min read",
+    slug: "why-brands-dont-convert",
     featured: true,
   },
   {
     id: 2,
-    title: "The Hidden Cost of Inconsistent Brand Voice",
+    title: "Authenticity Is Not a Vibe — It's a Strategic Advantage",
     excerpt:
-      "Every touchpoint that sounds different from the last costs you trust. Here's how to audit and fix your brand voice across channels.",
+      "Authenticity has been overused to the point of misunderstanding. In reality, it's neither soft nor abstract. It is strategic.",
     category: "Strategy",
-    date: "December 2023",
-    readTime: "4 min read",
-    slug: "hidden-cost-inconsistent-brand-voice",
+    date: "February 2024",
+    readTime: "5 min read",
+    slug: "authenticity-strategic-advantage",
     featured: false,
   },
   {
     id: 3,
-    title: "Property Management in Zanzibar: What Owners Need to Know",
+    title: "The Difference Between Being Visible and Being Positioned",
     excerpt:
-      "The short-term rental market in Zanzibar is growing. But success requires more than a listing. Here's what separates profitable properties from empty ones.",
-    category: "Hospitality",
-    date: "November 2023",
-    readTime: "6 min read",
-    slug: "property-management-zanzibar",
+      "Visibility is easy to measure. Positioning is not. Most brands chase the first and neglect the second, struggling to convert attention into revenue.",
+    category: "Branding",
+    date: "January 2024",
+    readTime: "5 min read",
+    slug: "visible-vs-positioned",
     featured: false,
   },
   {
     id: 4,
-    title: "Authenticity as a Growth Strategy",
+    title: "Luxury Brands Don't Shout — Here's What They Do Instead",
     excerpt:
-      "In a world of manufactured personas and borrowed aesthetics, authenticity has become rare — and valuable. Here's how to leverage it.",
-    category: "Growth",
-    date: "October 2023",
-    readTime: "7 min read",
-    slug: "authenticity-growth-strategy",
+      "In most markets, marketing has become louder. Luxury brands move in the opposite direction. They don't compete for attention. They control perception.",
+    category: "Branding",
+    date: "January 2024",
+    readTime: "6 min read",
+    slug: "luxury-brands-dont-shout",
     featured: true,
   },
   {
     id: 5,
-    title: "Building a Brand That Lasts: The 5-Year Framework",
+    title: "Why Most Properties in Zanzibar Are Underperforming Online",
     excerpt:
-      "Short-term tactics won't build lasting brands. Here's a framework for building brand equity that compounds over time.",
-    category: "Strategy",
-    date: "September 2023",
-    readTime: "8 min read",
-    slug: "building-brand-that-lasts",
+      "Zanzibar has beautiful properties, yet many consistently underperform online. The reason is rarely the property itself. It is positioning.",
+    category: "Hospitality",
+    date: "January 2024",
+    readTime: "6 min read",
+    slug: "zanzibar-properties-underperforming",
     featured: false,
   },
   {
     id: 6,
-    title: "The Art of Strategic Simplicity in Brand Design",
+    title: "WhatsApp Is the Most Underutilized Conversion Tool in East Africa",
     excerpt:
-      "The best brands aren't the most complex. They're the clearest. Learn how to strip away the noise and reveal what truly matters.",
-    category: "Branding",
-    date: "August 2023",
+      "In East Africa, WhatsApp is where business happens, decisions are made, and trust is built. Yet most brands treat it as an afterthought.",
+    category: "Growth",
+    date: "January 2024",
     readTime: "5 min read",
-    slug: "strategic-simplicity-brand-design",
+    slug: "whatsapp-conversion-tool",
+    featured: false,
+  },
+  {
+    id: 7,
+    title: "Marketing Isn't Broken — Your Foundation Is",
+    excerpt:
+      "Marketing is often blamed when growth stalls. But marketing rarely fails on its own. Brands invest in marketing before they invest in foundations.",
+    category: "Strategy",
+    date: "January 2024",
+    readTime: "6 min read",
+    slug: "marketing-foundation",
+    featured: false,
+  },
+  {
+    id: 8,
+    title: "From Listings to Assets: Treating Property as a Business",
+    excerpt:
+      "Many property owners think they are in hospitality. In reality, they are in asset management. The difference between a listing and an asset is intention.",
+    category: "Hospitality",
+    date: "January 2024",
+    readTime: "7 min read",
+    slug: "listings-to-assets",
     featured: false,
   },
 ];
@@ -87,17 +109,42 @@ const Insights = () => {
 
   return (
     <Layout>
-      <PageIntro
-        title="Insights"
-        subtitle="Thought leadership on branding, strategy, and growth. Not a blog — a collection of ideas worth your time."
-      />
+      {/* PageIntro with Background */}
+      <div className="relative">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1456324463128-7ff6903988d8?w=1920&h=600&fit=crop&q=80"
+            alt="Insights background"
+            className="w-full h-full object-cover"
+          />
+          {/* Brand color overlay with opacity */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#DADFDB]/95 via-[#DADFDB]/90 to-[#DADFDB]/85"></div>
+          
+          {/* Decorative Pattern Overlay */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, #3A9387 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }}></div>
+          </div>
+        </div>
+
+        {/* PageIntro Content */}
+        <div className="relative z-10">
+          <PageIntro
+            title="Insights"
+            subtitle="Thought leadership on branding, strategy, and growth. Not a blog — a collection of ideas worth your time."
+          />
+        </div>
+      </div>
 
       {/* Stats Bar */}
-      <SectionWrapper>
+      <div className="py-8 sm:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
             {[
-              { icon: BookOpen, value: `${insights.length}+`, label: "Articles" },
+              { icon: BookOpen, value: `${insights.length}`, label: "Articles" },
               { icon: Tag, value: "4", label: "Categories" },
               { icon: TrendingUp, value: "10K+", label: "Readers" },
               { icon: Calendar, value: "Weekly", label: "Updates" },
@@ -106,14 +153,14 @@ const Insights = () => {
               return (
                 <div
                   key={stat.label}
-                  className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-md"
+                  className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-md border-2 border-[#DADFDB] hover:shadow-xl hover:border-[#3A9387] transition-all duration-300 transform hover:-translate-y-1"
                   style={{
                     animationDelay: `${index * 0.1}s`,
                     opacity: 0,
                     animation: 'fadeInUp 0.6s ease-out forwards'
                   }}
                 >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#DADFDB] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#3A9387]/10 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#3A9387]" />
                   </div>
                   <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#194C4C] mb-1">
@@ -127,7 +174,7 @@ const Insights = () => {
             })}
           </div>
         </div>
-      </SectionWrapper>
+      </div>
 
       {/* Featured Article */}
       {featuredInsight && (
