@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/accordion";
 
 const exploreLinks = [
-  { name: "About Authentik", href: "/about", icon: "fa-info-circle" },
-  { name: "Marketing Services", href: "/marketing", icon: "fa-bullhorn" },
-  { name: "Authentik Homes", href: "/homes", icon: "fa-home" },
-  { name: "Properties", href: "/properties", icon: "fa-building" },
-  { name: "Insights", href: "/insights", icon: "fa-lightbulb" },
-  { name: "Contact", href: "/contact", icon: "fa-envelope" },
+  { name: "About Authentik", href: "/about" },
+  { name: "Marketing Services", href: "/marketing" },
+  { name: "Authentik Homes", href: "/homes" },
+  { name: "Properties", href: "/properties" },
+  { name: "Insights", href: "/insights" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [
@@ -43,9 +43,11 @@ export function Footer() {
             {/* Brand Column */}
             <div className="lg:col-span-1">
               <Link to="/" className="inline-block group">
-                <h3 className="font-serif text-3xl font-bold text-white mb-2 group-hover:text-[#F79120] transition-colors duration-300">
-                  Authentik
-                </h3>
+                <img 
+                  src="/logow.png" 
+                  alt="Authentik" 
+                  className="h-24 md:h-32 lg:h-36 w-auto group-hover:opacity-80 transition-opacity duration-300"
+                />
               </Link>
               <p className="mt-6 text-base text-white/80 leading-relaxed">
                 Helping brands, creators, and property owners express who they truly
@@ -54,7 +56,7 @@ export function Footer() {
               
               {/* Social Links */}
               <div className="mt-8">
-                <p className="text-sm font-semibold text-white/90 mb-4">Follow Us</p>
+                <p className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase">Follow Us</p>
                 <div className="flex gap-3">
                   {socialLinks.map((social) => (
                     <a
@@ -82,10 +84,9 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className="group flex items-center gap-3 text-white/80 hover:text-[#F79120] transition-all duration-300"
+                      className="group text-base text-white/80 hover:text-[#F79120] transition-colors duration-300 inline-block"
                     >
-                      <i className={`fas ${link.icon} text-[#3A9387] group-hover:text-[#F79120] group-hover:translate-x-1 transition-all duration-300`}></i>
-                      <span className="text-base">{link.name}</span>
+                      {link.name}
                     </Link>
                   </li>
                 ))}
@@ -97,39 +98,36 @@ export function Footer() {
               <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">
                 Get In Touch
               </h4>
-              <ul className="space-y-5 mt-6">
+              <ul className="space-y-6 mt-6">
                 <li>
-                  <p className="text-xs text-white/60 uppercase tracking-wide mb-2">Email</p>
+                  <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Email</p>
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="group flex items-center gap-3 text-white/90 hover:text-[#F79120] transition-colors duration-300"
+                    className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block"
                   >
-                    <i className="fas fa-envelope text-[#3A9387] group-hover:text-[#F79120] text-lg transition-colors duration-300"></i>
-                    <span className="text-base">{contactInfo.email}</span>
+                    {contactInfo.email}
                   </a>
                 </li>
                 <li>
-                  <p className="text-xs text-white/60 uppercase tracking-wide mb-2">Marketing</p>
+                  <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Marketing</p>
                   <a
                     href={`https://wa.me/${contactInfo.marketing.replace(/\s/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 text-white/90 hover:text-[#F79120] transition-colors duration-300"
+                    className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block"
                   >
-                    <i className="fab fa-whatsapp text-green-400 text-lg"></i>
-                    <span className="text-base">{contactInfo.marketing}</span>
+                    {contactInfo.marketing}
                   </a>
                 </li>
                 <li>
-                  <p className="text-xs text-white/60 uppercase tracking-wide mb-2">Homes</p>
+                  <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Homes</p>
                   <a
                     href={`https://wa.me/${contactInfo.homes.replace(/\s/g, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 text-white/90 hover:text-[#F79120] transition-colors duration-300"
+                    className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block"
                   >
-                    <i className="fab fa-whatsapp text-green-400 text-lg"></i>
-                    <span className="text-base">{contactInfo.homes}</span>
+                    {contactInfo.homes}
                   </a>
                 </li>
               </ul>
@@ -140,24 +138,22 @@ export function Footer() {
               <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">
                 Stay Updated
               </h4>
-              <p className="text-base text-white/80 mb-6 mt-6">
+              <p className="text-base text-white/80 mb-6 mt-6 leading-relaxed">
                 Get insights on branding, growth, and hospitality delivered to your inbox.
               </p>
               <form className="space-y-4">
-                <div className="relative">
-                  <i className="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50"></i>
+                <div>
                   <input
                     type="email"
                     placeholder="Your email address"
-                    className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#F79120] focus:bg-white/15 transition-all duration-300"
+                    className="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#F79120] focus:bg-white/15 transition-all duration-300"
                   />
                 </div>
                 <Button 
                   variant="accent" 
-                  className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl transition-all duration-300 hover:scale-105"
+                  className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg"
                 >
-                  <i className="fas fa-paper-plane mr-2"></i>
-                  Subscribe Now
+                  Subscribe
                 </Button>
               </form>
             </div>
@@ -180,10 +176,9 @@ export function Footer() {
                   href="https://wayreal.co"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-white/60 hover:text-[#F79120] transition-colors"
+                  className="text-white/60 hover:text-[#F79120] transition-colors"
                 >
-                  <span>A Wayreal Creative Hub brand</span>
-                  <i className="fas fa-external-link-alt text-xs"></i>
+                  A Wayreal Creative Hub brand
                 </a>
               </div>
             </div>
@@ -197,9 +192,11 @@ export function Footer() {
           {/* Brand */}
           <div className="mb-10 text-center">
             <Link to="/" className="inline-block">
-              <h3 className="font-serif text-3xl font-bold text-white mb-3">
-                Authentik
-              </h3>
+              <img 
+                src="/logow.png" 
+                alt="Authentik" 
+                className="h-20 md:h-24 w-auto mx-auto mb-3 hover:opacity-80 transition-opacity duration-300"
+              />
             </Link>
             <p className="text-base text-white/80 leading-relaxed max-w-sm mx-auto">
               Helping brands, creators, and property owners express who they truly are.
@@ -210,7 +207,6 @@ export function Footer() {
           <Accordion type="single" collapsible className="space-y-3 mb-10">
             <AccordionItem value="explore" className="border border-white/10 rounded-xl overflow-hidden bg-white/5">
               <AccordionTrigger className="text-white hover:no-underline px-6 py-4 font-semibold">
-                <i className="fas fa-compass mr-3 text-[#F79120]"></i>
                 Explore
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-4">
@@ -219,9 +215,8 @@ export function Footer() {
                     <li key={link.name}>
                       <Link
                         to={link.href}
-                        className="flex items-center gap-3 text-white/80 hover:text-[#F79120] transition-colors py-2"
+                        className="text-white/80 hover:text-[#F79120] transition-colors py-2 inline-block"
                       >
-                        <i className={`fas ${link.icon} text-[#3A9387]`}></i>
                         {link.name}
                       </Link>
                     </li>
@@ -232,42 +227,38 @@ export function Footer() {
 
             <AccordionItem value="contact" className="border border-white/10 rounded-xl overflow-hidden bg-white/5">
               <AccordionTrigger className="text-white hover:no-underline px-6 py-4 font-semibold">
-                <i className="fas fa-phone mr-3 text-[#F79120]"></i>
                 Contact
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-4">
                 <ul className="space-y-5 pt-2">
                   <li>
-                    <p className="text-xs text-white/60 uppercase tracking-wide mb-2">Email</p>
+                    <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Email</p>
                     <a
                       href={`mailto:${contactInfo.email}`}
-                      className="flex items-center gap-3 text-white/90"
+                      className="text-white/90 hover:text-[#F79120] transition-colors inline-block"
                     >
-                      <i className="fas fa-envelope text-[#3A9387]"></i>
                       {contactInfo.email}
                     </a>
                   </li>
                   <li>
-                    <p className="text-xs text-white/60 uppercase tracking-wide mb-2">Marketing</p>
+                    <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Marketing</p>
                     <a
                       href={`https://wa.me/${contactInfo.marketing.replace(/\s/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-white/90"
+                      className="text-white/90 hover:text-[#F79120] transition-colors inline-block"
                     >
-                      <i className="fab fa-whatsapp text-green-400"></i>
                       {contactInfo.marketing}
                     </a>
                   </li>
                   <li>
-                    <p className="text-xs text-white/60 uppercase tracking-wide mb-2">Homes</p>
+                    <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Homes</p>
                     <a
                       href={`https://wa.me/${contactInfo.homes.replace(/\s/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-white/90"
+                      className="text-white/90 hover:text-[#F79120] transition-colors inline-block"
                     >
-                      <i className="fab fa-whatsapp text-green-400"></i>
                       {contactInfo.homes}
                     </a>
                   </li>
@@ -288,20 +279,20 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="w-full px-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#F79120]"
+                className="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#F79120] transition-all duration-300"
               />
               <Button 
                 variant="accent" 
-                className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl"
+                className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg"
               >
-                Subscribe Now
+                Subscribe
               </Button>
             </form>
           </div>
 
           {/* Social Links */}
           <div className="mb-10 text-center">
-            <p className="text-sm font-semibold text-white/90 mb-4">Follow Us</p>
+            <p className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase">Follow Us</p>
             <div className="flex justify-center gap-4">
               {socialLinks.map((social) => (
                 <a
@@ -309,7 +300,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 bg-white/10 hover:bg-[#F79120] rounded-full flex items-center justify-center transition-all duration-300"
+                  className="w-12 h-12 bg-white/10 hover:bg-[#F79120] rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                   aria-label={social.name}
                 >
                   <i className={`${social.icon} text-white text-lg`}></i>
@@ -325,11 +316,11 @@ export function Footer() {
             </p>
             <div className="flex flex-col gap-2 text-sm">
               <div className="flex justify-center gap-4">
-                <Link to="/privacy" className="text-white/60 hover:text-[#F79120]">
+                <Link to="/privacy" className="text-white/60 hover:text-[#F79120] transition-colors">
                   Privacy
                 </Link>
                 <span className="text-white/30">|</span>
-                <Link to="/terms" className="text-white/60 hover:text-[#F79120]">
+                <Link to="/terms" className="text-white/60 hover:text-[#F79120] transition-colors">
                   Terms
                 </Link>
               </div>
@@ -337,7 +328,7 @@ export function Footer() {
                 href="https://wayreal.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/60 hover:text-[#F79120]"
+                className="text-white/60 hover:text-[#F79120] transition-colors"
               >
                 A Wayreal Creative Hub brand
               </a>

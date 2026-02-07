@@ -58,36 +58,6 @@ const LiveClock = () => {
   );
 };
 
-// Active status indicator component
-const ActiveStatus = () => {
-  const [isActive, setIsActive] = useState(isWithinOfficeHours());
-
-  useEffect(() => {
-    const checkStatus = () => {
-      setIsActive(isWithinOfficeHours());
-    };
-
-    // Check every minute
-    const interval = setInterval(checkStatus, 60000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2.5">
-      <div className="relative">
-        <div className={`w-3 h-3 rounded-full ${isActive ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-        {isActive && (
-          <div className="absolute inset-0 w-3 h-3 rounded-full bg-green-500 animate-ping"></div>
-        )}
-      </div>
-      <span className="text-white text-sm font-medium">
-        {isActive ? 'We\'re Online' : 'Currently Offline'}
-      </span>
-    </div>
-  );
-};
-
 const contactMethods = [
   {
     icon: Mail,
@@ -155,7 +125,7 @@ const ContactMethodCard = ({ method, index }) => {
   
   return (
     <div
-      className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-[#DADFDB] hover:border-[#3A9387]"
+      className="group bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-[#DADFDB] hover:border-[#3A9387]"
       style={{
         animationDelay: `${index * 0.1}s`,
         opacity: 0,
@@ -166,7 +136,7 @@ const ContactMethodCard = ({ method, index }) => {
         <IconComponent className="w-8 h-8 text-white" />
       </div>
       
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-center gap-2 mb-4">
         <span className="text-xs font-bold tracking-wider uppercase text-[#3A9387]">
           {method.label}
         </span>
@@ -174,12 +144,12 @@ const ContactMethodCard = ({ method, index }) => {
       
       <a
         href={method.href}
-        className="text-xl font-semibold text-[#194C4C] hover:text-[#3A9387] transition-colors block mb-3 font-serif"
+        className="text-xl md:text-2xl font-semibold text-[#194C4C] hover:text-[#3A9387] transition-colors block mb-4 font-serif"
       >
         {method.value}
       </a>
       
-      <p className="text-sm text-[#194C4C]/70 mb-6 leading-relaxed">
+      <p className="text-base text-[#194C4C]/70 mb-6 leading-relaxed">
         {method.description}
       </p>
 
@@ -206,7 +176,7 @@ const QuickActionCard = ({ action, index }) => {
       href={action.href}
       target={action.external ? "_blank" : undefined}
       rel={action.external ? "noopener noreferrer" : undefined}
-      className="group block bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-[#DADFDB] hover:border-[#3A9387]"
+      className="group block bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border-2 border-[#DADFDB] hover:border-[#3A9387]"
       style={{
         animationDelay: `${index * 0.15}s`,
         opacity: 0,
@@ -216,21 +186,21 @@ const QuickActionCard = ({ action, index }) => {
       <div className="w-full h-1 bg-gradient-to-r from-[#F79120] to-[#E17C47] rounded-full mb-6 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
       
       <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-xl flex items-center justify-center transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300 shadow-md">
+        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-2xl flex items-center justify-center transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300 shadow-md">
           <IconComponent className="w-7 h-7 text-white" />
         </div>
         
         <div className="flex-1">
-          <h3 className="font-serif text-xl font-semibold text-[#194C4C] mb-2 group-hover:text-[#3A9387] transition-colors">
+          <h3 className="font-serif text-xl md:text-2xl font-semibold text-[#194C4C] mb-3 group-hover:text-[#3A9387] transition-colors">
             {action.title}
           </h3>
-          <p className="text-sm text-[#194C4C]/70 leading-relaxed">
+          <p className="text-base text-[#194C4C]/70 leading-relaxed">
             {action.description}
           </p>
         </div>
         
-        <div className="flex-shrink-0 w-8 h-8 bg-[#DADFDB] rounded-full flex items-center justify-center group-hover:bg-[#3A9387] transition-all duration-300">
-          <span className="text-[#194C4C] group-hover:text-white group-hover:translate-x-1 transition-all duration-300">→</span>
+        <div className="flex-shrink-0 w-10 h-10 bg-[#DADFDB] rounded-full flex items-center justify-center group-hover:bg-[#3A9387] transition-all duration-300">
+          <span className="text-lg text-[#194C4C] group-hover:text-white group-hover:translate-x-1 transition-all duration-300">→</span>
         </div>
       </div>
     </a>
@@ -241,18 +211,13 @@ const Contact = () => {
   return (
     <Layout>
       {/* Hero Section with Brand Colors */}
-      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-[#194C4C] via-[#3A9387] to-[#194C4C]">
+      <section className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden bg-gradient-to-br from-[#194C4C] via-[#3A9387] to-[#194C4C]">
         {/* Decorative Elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#F79120]/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#3A9387]/20 rounded-full blur-3xl"></div>
         
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-6 flex flex-col items-center gap-4 opacity-0 animate-fadeIn">
-              <ActiveStatus />
-              <LiveClock />
-            </div>
-            
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 opacity-0 animate-fadeInUp leading-tight">
               Get in Touch
             </h1>
@@ -272,59 +237,59 @@ const Contact = () => {
       </section>
 
       {/* Contact Methods Section */}
-      <div className="py-16 md:py-24 bg-[#DADFDB]/30">
+      <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-2xl mb-6 shadow-lg">
               <MessageCircle className="w-8 h-8 text-white" />
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-4">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-6">
               Choose Your Channel
             </h2>
-            <p className="text-lg text-[#194C4C]/70 leading-relaxed">
+            <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed">
               We're here to help. Reach out through your preferred method.
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-[#F79120] to-[#E17C47] mx-auto rounded-full mt-6"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {contactMethods.map((method, index) => (
               <ContactMethodCard key={method.label} method={method} index={index} />
             ))}
           </div>
         </div>
-      </div>
+      </SectionWrapper>
 
       {/* Quick Actions Section */}
-      <div className="py-16 md:py-24 bg-white">
+      <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#F79120] to-[#E17C47] rounded-2xl mb-6 shadow-lg">
               <Send className="w-8 h-8 text-white" />
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-4">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-6">
               Quick Actions
             </h2>
-            <p className="text-lg text-[#194C4C]/70 leading-relaxed">
+            <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed">
               Choose the option that best fits your needs and we'll get started right away.
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-[#3A9387] to-[#194C4C] mx-auto rounded-full mt-6"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {quickActions.map((action, index) => (
               <QuickActionCard key={action.title} action={action} index={index} />
             ))}
           </div>
         </div>
-      </div>
+      </SectionWrapper>
 
       {/* Location & Hours Section */}
-      <div className="py-16 md:py-24 bg-[#DADFDB]/30">
+      <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Location Card */}
-            <div className="bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-3xl p-10 text-white shadow-2xl transform hover:scale-105 transition-all duration-500 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-3xl p-12 text-white shadow-2xl transform hover:scale-105 transition-all duration-500 relative overflow-hidden">
               {/* Decorative Circle */}
               <div className="absolute -top-16 -right-16 w-48 h-48 bg-white/10 rounded-full"></div>
               
@@ -332,16 +297,16 @@ const Contact = () => {
                 <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <MapPin className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
+                <h3 className="font-serif text-3xl md:text-4xl font-semibold mb-6">
                   Our Location
                 </h3>
-                <p className="text-xl text-white/90 mb-8 font-medium">
+                <p className="text-xl md:text-2xl text-white/90 mb-8 font-medium">
                   Zanzibar, Tanzania
                 </p>
                 <div className="h-px bg-white/30 mb-6"></div>
                 <div className="flex items-center gap-3 text-white/90">
                   <Globe className="w-5 h-5 text-[#F79120]" />
-                  <p className="text-sm">
+                  <p className="text-base">
                     Serving clients globally with local expertise
                   </p>
                 </div>
@@ -349,8 +314,8 @@ const Contact = () => {
             </div>
 
             {/* Office Hours Card */}
-            <div className="bg-white rounded-3xl p-10 shadow-2xl border-2 border-[#DADFDB] transform hover:scale-105 transition-all duration-500">
-              <div className="flex items-center justify-between mb-6">
+            <div className="bg-white rounded-3xl p-12 shadow-2xl border-2 border-[#DADFDB] transform hover:scale-105 transition-all duration-500">
+              <div className="flex items-center justify-between mb-8">
                 <div className="w-16 h-16 bg-gradient-to-br from-[#F79120] to-[#E17C47] rounded-2xl flex items-center justify-center shadow-lg">
                   <Clock className="w-8 h-8 text-white" />
                 </div>
@@ -370,7 +335,7 @@ const Contact = () => {
                 )}
               </div>
               
-              <h3 className="font-serif text-3xl md:text-4xl font-semibold text-[#194C4C] mb-3">
+              <h3 className="font-serif text-3xl md:text-4xl font-semibold text-[#194C4C] mb-6">
                 Office Hours
               </h3>
               
@@ -379,22 +344,22 @@ const Contact = () => {
                 <LiveClock />
               </div>
               
-              <div className="space-y-5">
+              <div className="space-y-6">
                 {officeHours.map((schedule, index) => (
                   <div 
                     key={schedule.day} 
-                    className={`flex justify-between items-center pb-5 ${index !== officeHours.length - 1 ? 'border-b-2 border-[#DADFDB]' : ''}`}
+                    className={`flex justify-between items-center pb-6 ${index !== officeHours.length - 1 ? 'border-b-2 border-[#DADFDB]' : ''}`}
                   >
-                    <span className="font-semibold text-[#194C4C]">{schedule.day}</span>
-                    <span className="text-[#194C4C]/70 font-medium">{schedule.hours}</span>
+                    <span className="font-semibold text-base md:text-lg text-[#194C4C]">{schedule.day}</span>
+                    <span className="text-base text-[#194C4C]/70 font-medium">{schedule.hours}</span>
                   </div>
                 ))}
               </div>
               
               <div className="mt-8 pt-8 border-t-2 border-[#DADFDB]">
-                <div className="flex items-start gap-3 bg-[#3A9387]/10 p-4 rounded-xl">
+                <div className="flex items-start gap-3 bg-[#3A9387]/10 p-5 rounded-xl">
                   <Info className="w-5 h-5 text-[#3A9387] flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-[#194C4C]/80 leading-relaxed">
+                  <p className="text-base text-[#194C4C]/80 leading-relaxed">
                     Available for urgent matters 24/7 via WhatsApp
                   </p>
                 </div>
@@ -402,12 +367,12 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </div>
+      </SectionWrapper>
 
       {/* CTA Section */}
-      <div className="py-16 md:py-24 bg-white">
+      <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-[#F79120] via-[#E17C47] to-[#F79120] rounded-3xl shadow-2xl p-10 md:p-16 text-center relative overflow-hidden max-w-5xl mx-auto">
+          <div className="bg-gradient-to-br from-[#F79120] via-[#E17C47] to-[#F79120] rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden max-w-5xl mx-auto">
             {/* Decorative Elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
@@ -419,7 +384,7 @@ const Contact = () => {
               <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6 leading-tight">
                 Still Have Questions?
               </h2>
-              <p className="text-lg md:text-xl text-white/95 mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
                 We're always happy to chat. Send us a message and we'll get back to you as soon as possible.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -443,7 +408,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </div>
+      </SectionWrapper>
 
       <style>{`
         @keyframes fadeInUp {
@@ -485,5 +450,8 @@ const Contact = () => {
     </Layout>
   );
 };
+
+// Import SectionWrapper component
+import { SectionWrapper } from "@/components/sections/SectionWrapper";
 
 export default Contact;

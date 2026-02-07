@@ -84,15 +84,24 @@ const whyChoose = [
 const Properties = () => {
   return (
     <Layout>
-      <PageIntro
-        title="Our Properties"
-        subtitle="Browse our carefully curated collection of Zanzibar properties. Each one reflects our commitment to quality, comfort, and authentic island living."
-      />
+      {/* Compact Page Intro */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-[#194C4C] mb-4">
+              Our Properties
+            </h1>
+            <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed">
+              Browse our carefully curated collection of Zanzibar properties. Each one reflects our commitment to quality, comfort, and authentic island living.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
-      <div className="py-8 sm:py-12">
+      <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
             {stats.map((stat, index) => (
               <div
                 key={index}
@@ -103,20 +112,20 @@ const Properties = () => {
                   animation: 'fadeInUp 0.6s ease-out forwards'
                 }}
               >
-                <div className="w-12 h-12 bg-[#3A9387]/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <i className={`fas ${stat.icon} text-xl text-[#3A9387]`}></i>
+                <div className="w-14 h-14 bg-[#3A9387]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className={`fas ${stat.icon} text-2xl text-[#3A9387]`}></i>
                 </div>
-                <h3 className="text-3xl font-bold text-[#194C4C] mb-2">
+                <h3 className="text-3xl md:text-4xl font-bold text-[#194C4C] mb-2">
                   {stat.number}
                 </h3>
-                <p className="text-sm text-[#194C4C]/60 font-medium">
+                <p className="text-sm md:text-base text-[#194C4C]/60 font-medium">
                   {stat.label}
                 </p>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </SectionWrapper>
 
       {/* Properties Grid */}
       <SectionWrapper background="neutral">
@@ -165,34 +174,34 @@ const Properties = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-8">
                   {/* Title & Location */}
-                  <h3 className="font-serif text-xl md:text-2xl font-semibold text-[#194C4C] mb-2 group-hover:text-[#3A9387] transition-colors">
+                  <h3 className="font-serif text-xl md:text-2xl font-semibold text-[#194C4C] mb-3 group-hover:text-[#3A9387] transition-colors">
                     {property.title}
                   </h3>
-                  <p className="flex items-center gap-2 text-sm text-[#194C4C]/60 mb-4">
+                  <p className="flex items-center gap-2 text-sm md:text-base text-[#194C4C]/60 mb-6">
                     <MapPin className="w-4 h-4 text-[#F79120]" />
                     {property.location}
                   </p>
 
                   {/* Property Details */}
-                  <div className="flex items-center gap-4 mb-4 pb-4 border-b border-[#DADFDB]">
-                    <div className="flex items-center gap-2 text-sm text-[#194C4C]/70">
-                      <Bed className="w-4 h-4 text-[#3A9387]" />
+                  <div className="flex items-center gap-4 mb-6 pb-6 border-b border-[#DADFDB]">
+                    <div className="flex items-center gap-2 text-sm md:text-base text-[#194C4C]/70">
+                      <Bed className="w-5 h-5 text-[#3A9387]" />
                       <span>{property.bedrooms} Beds</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-[#194C4C]/70">
-                      <Bath className="w-4 h-4 text-[#3A9387]" />
+                    <div className="flex items-center gap-2 text-sm md:text-base text-[#194C4C]/70">
+                      <Bath className="w-5 h-5 text-[#3A9387]" />
                       <span>{property.bathrooms} Baths</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-[#194C4C]/70">
-                      <Users className="w-4 h-4 text-[#3A9387]" />
+                    <div className="flex items-center gap-2 text-sm md:text-base text-[#194C4C]/70">
+                      <Users className="w-5 h-5 text-[#3A9387]" />
                       <span>{property.guests} Guests</span>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-[#194C4C]/70 text-sm leading-relaxed mb-4">
+                  <p className="text-[#194C4C]/70 text-base leading-relaxed mb-6">
                     {property.description}
                   </p>
 
@@ -201,7 +210,7 @@ const Properties = () => {
                     {property.features.map((feature, idx) => (
                       <span
                         key={idx}
-                        className="inline-block px-3 py-1 bg-[#3A9387]/10 text-[#3A9387] text-xs font-medium rounded-full"
+                        className="inline-block px-3 py-1.5 bg-[#3A9387]/10 text-[#3A9387] text-xs font-medium rounded-full"
                       >
                         {feature}
                       </span>
@@ -214,7 +223,7 @@ const Properties = () => {
                       href="https://wa.me/255674593918"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 border-2 border-[#3A9387] text-[#3A9387] hover:bg-[#3A9387] hover:text-white font-semibold px-4 py-2.5 rounded-full transition-all duration-300 text-sm"
+                      className="flex-1 inline-flex items-center justify-center gap-2 border-2 border-[#3A9387] text-[#3A9387] hover:bg-[#3A9387] hover:text-white font-semibold px-4 py-3 rounded-full transition-all duration-300 text-sm"
                     >
                       <MessageCircle className="w-4 h-4" />
                       Inquire
@@ -223,7 +232,7 @@ const Properties = () => {
                       href={property.airbnbUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-4 py-2.5 rounded-full transition-all duration-300 text-sm"
+                      className="flex-1 inline-flex items-center justify-center gap-2 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-4 py-3 rounded-full transition-all duration-300 text-sm"
                     >
                       Book Now
                       <ArrowRight className="w-4 h-4" />
@@ -239,21 +248,21 @@ const Properties = () => {
       {/* Why Choose Our Properties */}
       <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-10 sm:mb-12">
-              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-6">
                 Why Choose Our Properties?
               </h2>
               <div className="w-24 h-1 bg-[#F79120] mx-auto rounded-full"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {whyChoose.map((item, index) => {
                 const Icon = item.icon;
                 return (
                   <div
                     key={index}
-                    className="flex gap-4 p-6 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#3A9387] transform hover:-translate-y-1"
+                    className="flex gap-4 p-8 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#3A9387] transform hover:-translate-y-2"
                     style={{
                       animationDelay: `${index * 0.1}s`,
                       opacity: 0,
@@ -261,15 +270,15 @@ const Properties = () => {
                     }}
                   >
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-[#DADFDB] rounded-xl flex items-center justify-center transform hover:scale-110 hover:rotate-6 transition-all duration-300">
-                        <Icon className="w-6 h-6 text-[#3A9387]" />
+                      <div className="w-14 h-14 bg-[#DADFDB] rounded-2xl flex items-center justify-center transform hover:scale-110 hover:rotate-6 transition-all duration-300">
+                        <Icon className="w-7 h-7 text-[#3A9387]" />
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-serif text-lg font-semibold text-[#194C4C] mb-2">
+                      <h3 className="font-serif text-lg md:text-xl font-semibold text-[#194C4C] mb-3">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-[#194C4C]/70 leading-relaxed">
+                      <p className="text-base text-[#194C4C]/70 leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -284,19 +293,19 @@ const Properties = () => {
       {/* CTA Section */}
       <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#F79120] to-[#E17C47] rounded-2xl sm:rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden max-w-5xl mx-auto">
+          <div className="bg-gradient-to-r from-[#F79120] to-[#E17C47] rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden max-w-5xl mx-auto">
             {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-white/10 rounded-full -mr-24 sm:-mr-32 -mt-24 sm:-mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-32 sm:w-48 h-32 sm:h-48 bg-white/10 rounded-full -ml-16 sm:-ml-24 -mb-16 sm:-mb-24"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
             
             <div className="relative z-10">
-              <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full mb-6">
-                <i className="fas fa-key text-3xl sm:text-4xl text-white"></i>
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                <i className="fas fa-key text-4xl text-white"></i>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 sm:mb-6">
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6">
                 Ready to Experience Zanzibar?
               </h2>
-              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Book your perfect island getaway today and discover the authentic charm of Zanzibar.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

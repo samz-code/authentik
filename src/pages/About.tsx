@@ -147,10 +147,19 @@ const ImageCarousel = () => {
 const About = () => {
   return (
     <Layout>
-      <PageIntro
-        title="About Authentik"
-        subtitle="We're a branding and property management company based in Zanzibar, serving clients globally. We help brands, creators, and property owners express who they truly are."
-      />
+      {/* Compact Page Intro */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-[#194C4C] mb-4">
+              About Authentik
+            </h1>
+            <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed">
+              We're a branding and property management company based in Zanzibar, serving clients globally. We help brands, creators, and property owners express who they truly are.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Image Carousel Section */}
       <SectionWrapper>

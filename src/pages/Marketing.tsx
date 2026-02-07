@@ -109,26 +109,26 @@ const ServiceCard = ({ service, index }) => {
         animation: 'fadeInUp 0.6s ease-out forwards'
       }}
     >
-      <div className="p-4 sm:p-6 md:p-8">
-        {/* Header Section - Now Stacked on Mobile */}
-        <div className="flex flex-col gap-4 mb-4">
+      <div className="p-8">
+        {/* Header Section */}
+        <div className="flex flex-col gap-4 mb-6">
           {/* Title & Icon Row */}
-          <div className="flex items-center gap-3">
-            <div className="flex-shrink-0 w-12 h-12 bg-[#DADFDB] rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-              <i className={`fas ${service.icon} text-xl text-[#3A9387] group-hover:text-[#E17C47] transition-colors duration-300`}></i>
+          <div className="flex items-center gap-4">
+            <div className="flex-shrink-0 w-14 h-14 bg-[#DADFDB] rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+              <i className={`fas ${service.icon} text-2xl text-[#3A9387] group-hover:text-[#E17C47] transition-colors duration-300`}></i>
             </div>
-            <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-semibold text-[#194C4C] group-hover:text-[#3A9387] transition-colors flex-1">
+            <h3 className="font-serif text-2xl md:text-3xl font-semibold text-[#194C4C] group-hover:text-[#3A9387] transition-colors flex-1">
               {service.title}
             </h3>
           </div>
 
-          {/* Price Tag - Full Width on Mobile */}
-          <div className="bg-[#DADFDB] rounded-xl p-3 sm:p-4">
+          {/* Price Tag */}
+          <div className="bg-[#DADFDB] rounded-xl p-4">
             <div className="flex items-center justify-between">
               <p className="text-xs text-[#194C4C]/60 uppercase tracking-wide">
                 Starting from
               </p>
-              <p className="font-serif text-lg sm:text-xl md:text-2xl font-bold text-[#194C4C]">
+              <p className="font-serif text-2xl md:text-3xl font-bold text-[#194C4C]">
                 {service.price}
               </p>
             </div>
@@ -136,58 +136,58 @@ const ServiceCard = ({ service, index }) => {
         </div>
 
         {/* The Gap */}
-        <div className="mb-4">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
             <div className="w-1 h-4 bg-[#F79120] rounded-full"></div>
             <p className="text-xs font-semibold tracking-wider text-[#194C4C]/60 uppercase">
               The Gap
             </p>
           </div>
-          <p className="text-sm sm:text-base text-[#194C4C]/70 leading-relaxed">
+          <p className="text-base md:text-lg text-[#194C4C]/70 leading-relaxed">
             {service.gap}
           </p>
         </div>
 
         {/* Expandable Content */}
-        <div className={`space-y-4 transition-all duration-500 ease-in-out ${
+        <div className={`space-y-6 transition-all duration-500 ease-in-out ${
           isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}>
           {/* Our Approach */}
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-3">
               <div className="w-1 h-4 bg-[#3A9387] rounded-full"></div>
               <p className="text-xs font-semibold tracking-wider text-[#194C4C]/60 uppercase">
                 Our Approach
               </p>
             </div>
-            <p className="text-sm sm:text-base text-[#194C4C]/70 leading-relaxed">
+            <p className="text-base md:text-lg text-[#194C4C]/70 leading-relaxed">
               {service.approach}
             </p>
           </div>
 
           {/* Outcome */}
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-3">
               <div className="w-1 h-4 bg-[#F79120] rounded-full"></div>
               <p className="text-xs font-semibold tracking-wider text-[#194C4C]/60 uppercase">
                 Outcome
               </p>
             </div>
-            <p className="text-sm sm:text-base text-[#194C4C]/70 leading-relaxed">
+            <p className="text-base md:text-lg text-[#194C4C]/70 leading-relaxed">
               {service.outcome}
             </p>
           </div>
 
           {/* Features */}
-          <div className="pt-4 border-t border-[#DADFDB]">
-            <p className="text-xs font-semibold tracking-wider text-[#194C4C]/60 uppercase mb-3">
+          <div className="pt-6 border-t border-[#DADFDB]">
+            <p className="text-xs font-semibold tracking-wider text-[#194C4C]/60 uppercase mb-4">
               What's Included
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {service.features.map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#3A9387] flex-shrink-0" />
-                  <span className="text-sm text-[#194C4C]/70">{feature}</span>
+                  <Check className="w-5 h-5 text-[#3A9387] flex-shrink-0" />
+                  <span className="text-base text-[#194C4C]/70">{feature}</span>
                 </div>
               ))}
             </div>
@@ -197,10 +197,10 @@ const ServiceCard = ({ service, index }) => {
         {/* Toggle Button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-4 flex items-center gap-2 text-[#3A9387] font-semibold hover:text-[#E17C47] hover:gap-3 transition-all duration-300"
+          className="mt-6 flex items-center gap-2 text-[#3A9387] font-semibold hover:text-[#E17C47] hover:gap-3 transition-all duration-300"
         >
-          <span className="text-sm sm:text-base">{isExpanded ? "Show Less" : "Learn More"}</span>
-          <i className={`fas ${isExpanded ? "fa-chevron-up" : "fa-arrow-right"} text-sm transition-transform duration-300`}></i>
+          <span className="text-base">{isExpanded ? "Show Less" : "Learn More"}</span>
+          <i className={`fas ${isExpanded ? "fa-chevron-up" : "fa-arrow-right"} transition-transform duration-300`}></i>
         </button>
       </div>
 
@@ -213,25 +213,34 @@ const ServiceCard = ({ service, index }) => {
 const Marketing = () => {
   return (
     <Layout>
-      <PageIntro
-        title="Authentik Marketing"
-        subtitle="We don't do generic marketing. We help you express your authentic brand — then build systems that turn that clarity into growth."
-      />
+      {/* Compact Page Intro */}
+      <section className="pt-24 pb-8 md:pt-28 md:pb-12 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-[#194C4C] mb-4">
+              Authentik Marketing
+            </h1>
+            <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed">
+              We don't do generic marketing. We help you express your authentic brand — then build systems that turn that clarity into growth.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Value Proposition Section */}
       <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-[#3A9387] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-white shadow-2xl">
-              <div className="flex flex-col sm:flex-row items-start gap-4 mb-4 sm:mb-6">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <i className="fas fa-lightbulb text-xl sm:text-2xl text-[#F79120]"></i>
+            <div className="bg-[#3A9387] rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+              <div className="flex items-start gap-6">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i className="fas fa-lightbulb text-3xl text-[#F79120]"></i>
                 </div>
                 <div className="flex-1">
-                  <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold mb-3 sm:mb-4">
+                  <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl font-semibold mb-4">
                     Marketing That Actually Works
                   </h2>
-                  <p className="text-base sm:text-lg text-white/90 leading-relaxed">
+                  <p className="text-lg md:text-xl text-white/90 leading-relaxed">
                     We don't just create content or run ads. We help you define who you are, express it with clarity, and build systems that turn that authenticity into measurable growth. Every service below is designed to bridge the gap between where you are and where you want to be.
                   </p>
                 </div>
@@ -244,17 +253,17 @@ const Marketing = () => {
       {/* Services List */}
       <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16">
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-4 sm:mb-6">
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-6">
               Our Services
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-[#194C4C]/70">
+            <p className="text-lg md:text-xl text-[#194C4C]/70">
               Choose what you need. Or let us build you a custom package.
             </p>
-            <div className="w-24 h-1 bg-[#F79120] mx-auto rounded-full mt-4 sm:mt-6"></div>
+            <div className="w-24 h-1 bg-[#F79120] mx-auto rounded-full mt-6"></div>
           </div>
 
-          <div className="space-y-4 sm:space-y-6 md:space-y-8 max-w-6xl mx-auto">
+          <div className="space-y-6 md:space-y-8 max-w-6xl mx-auto">
             {services.map((service, index) => (
               <ServiceCard key={service.title} service={service} index={index} />
             ))}
@@ -265,36 +274,36 @@ const Marketing = () => {
       {/* CTA Section */}
       <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#F79120] to-[#E17C47] rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 lg:p-16 text-center relative overflow-hidden">
+          <div className="bg-gradient-to-r from-[#F79120] to-[#E17C47] rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden">
             {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-white/10 rounded-full -mr-24 sm:-mr-32 -mt-24 sm:-mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-32 sm:w-48 h-32 sm:h-48 bg-white/10 rounded-full -ml-16 sm:-ml-24 -mb-16 sm:-mb-24"></div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
             
             <div className="relative z-10">
-              <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full mb-4 sm:mb-6">
-                <i className="fas fa-rocket text-2xl sm:text-3xl md:text-4xl text-white"></i>
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                <i className="fas fa-rocket text-4xl text-white"></i>
               </div>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4 sm:mb-6">
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6">
                 Ready to Express Your Authenticity?
               </h2>
-              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                 Book a strategy call and let's discuss how we can help you grow with clarity, confidence, and measurable results.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center justify-center gap-2 sm:gap-3 bg-white hover:bg-[#DADFDB] text-[#194C4C] font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg text-sm sm:text-base"
+                  className="inline-flex items-center justify-center gap-3 bg-white hover:bg-[#DADFDB] text-[#194C4C] font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
                 >
                   <span>Book a Strategy Call</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a
                   href="https://wa.me/255777296026"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 sm:gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg text-sm sm:text-base"
+                  className="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
                 >
-                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <MessageCircle className="w-5 h-5" />
                   WhatsApp Us
                 </a>
               </div>

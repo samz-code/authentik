@@ -130,19 +130,25 @@ const Insights = () => {
           </div>
         </div>
 
-        {/* PageIntro Content */}
-        <div className="relative z-10">
-          <PageIntro
-            title="Insights"
-            subtitle="Thought leadership on branding, strategy, and growth. Not a blog — a collection of ideas worth your time."
-          />
-        </div>
+        {/* Compact Page Intro Content */}
+        <section className="relative z-10 pt-24 pb-8 md:pt-28 md:pb-12">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-[#194C4C] mb-4">
+                Insights
+              </h1>
+              <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed">
+                Thought leadership on branding, strategy, and growth. Not a blog — a collection of ideas worth your time.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
 
       {/* Stats Bar */}
-      <div className="py-8 sm:py-12">
+      <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
             {[
               { icon: BookOpen, value: `${insights.length}`, label: "Articles" },
               { icon: Tag, value: "4", label: "Categories" },
@@ -153,20 +159,20 @@ const Insights = () => {
               return (
                 <div
                   key={stat.label}
-                  className="text-center p-4 sm:p-6 bg-white rounded-2xl shadow-md border-2 border-[#DADFDB] hover:shadow-xl hover:border-[#3A9387] transition-all duration-300 transform hover:-translate-y-1"
+                  className="text-center p-6 bg-white rounded-2xl shadow-md border-2 border-[#DADFDB] hover:shadow-xl hover:border-[#3A9387] transition-all duration-300 transform hover:-translate-y-2"
                   style={{
                     animationDelay: `${index * 0.1}s`,
                     opacity: 0,
                     animation: 'fadeInUp 0.6s ease-out forwards'
                   }}
                 >
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#3A9387]/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#3A9387]" />
+                  <div className="w-14 h-14 bg-[#3A9387]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-7 h-7 text-[#3A9387]" />
                   </div>
-                  <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#194C4C] mb-1">
+                  <p className="text-3xl md:text-4xl font-bold text-[#194C4C] mb-2">
                     {stat.value}
                   </p>
-                  <p className="text-xs sm:text-sm text-[#194C4C]/60">
+                  <p className="text-sm md:text-base text-[#194C4C]/60 font-medium">
                     {stat.label}
                   </p>
                 </div>
@@ -174,14 +180,14 @@ const Insights = () => {
             })}
           </div>
         </div>
-      </div>
+      </SectionWrapper>
 
       {/* Featured Article */}
       {featuredInsight && (
         <SectionWrapper background="neutral">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-6 sm:mb-8">
+              <div className="text-center mb-8">
                 <span className="inline-block px-4 py-2 bg-[#F79120] text-white text-xs font-semibold tracking-wider uppercase rounded-full">
                   Featured Article
                 </span>
@@ -191,32 +197,32 @@ const Insights = () => {
                 to={`/insights/${featuredInsight.slug}`}
                 className="group block bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-transparent hover:border-[#3A9387] transition-all duration-500 transform hover:-translate-y-2"
               >
-                <div className="p-6 sm:p-8 md:p-12">
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                    <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-[#3A9387] bg-[#3A9387]/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
-                      <Tag className="w-3 h-3 sm:w-4 sm:h-4" />
+                <div className="p-8 md:p-12 lg:p-16">
+                  <div className="flex flex-wrap items-center gap-4 mb-6">
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-[#3A9387] bg-[#3A9387]/10 px-4 py-2 rounded-full">
+                      <Tag className="w-4 h-4" />
                       {featuredInsight.category}
                     </span>
-                    <span className="flex items-center gap-2 text-xs sm:text-sm text-[#194C4C]/60">
-                      <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="flex items-center gap-2 text-sm text-[#194C4C]/60">
+                      <Calendar className="w-4 h-4" />
                       {featuredInsight.date}
                     </span>
-                    <span className="text-xs sm:text-sm text-[#194C4C]/60">
+                    <span className="text-sm text-[#194C4C]/60">
                       {featuredInsight.readTime}
                     </span>
                   </div>
                   
-                  <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-4 sm:mb-6 group-hover:text-[#3A9387] transition-colors">
+                  <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-6 group-hover:text-[#3A9387] transition-colors">
                     {featuredInsight.title}
                   </h3>
                   
-                  <p className="text-base sm:text-lg md:text-xl text-[#194C4C]/70 leading-relaxed mb-6 sm:mb-8">
+                  <p className="text-lg md:text-xl text-[#194C4C]/70 leading-relaxed mb-8">
                     {featuredInsight.excerpt}
                   </p>
                   
-                  <div className="flex items-center gap-2 sm:gap-3 text-sm sm:text-base font-semibold text-[#3A9387] group-hover:text-[#E17C47] transition-colors">
+                  <div className="flex items-center gap-3 text-base font-semibold text-[#3A9387] group-hover:text-[#E17C47] transition-colors">
                     <span>Read Full Article</span>
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </div>
                 
@@ -233,16 +239,16 @@ const Insights = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             {/* Category Filter */}
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-[#194C4C] mb-6 sm:mb-8">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[#194C4C] mb-8">
                 Browse by Category
               </h2>
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              <div className="flex flex-wrap justify-center gap-3">
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
-                    className={`px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-semibold rounded-full transition-all duration-300 ${
+                    className={`px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 ${
                       activeCategory === category
                         ? "bg-[#3A9387] text-white shadow-lg scale-105"
                         : "bg-white text-[#194C4C] border-2 border-[#DADFDB] hover:border-[#3A9387] hover:scale-105"
@@ -267,10 +273,10 @@ const Insights = () => {
                     animation: 'fadeInUp 0.6s ease-out forwards'
                   }}
                 >
-                  <div className="p-6 sm:p-8">
+                  <div className="p-8">
                     {/* Meta Info */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-[#3A9387] bg-[#3A9387]/10 px-3 py-1.5 rounded-full">
+                    <div className="flex items-center justify-between mb-6">
+                      <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-[#3A9387] bg-[#3A9387]/10 px-3 py-1.5 rounded-full">
                         <Tag className="w-3 h-3" />
                         {insight.category}
                       </span>
@@ -280,18 +286,18 @@ const Insights = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-semibold text-[#194C4C] mb-3 sm:mb-4 group-hover:text-[#3A9387] transition-colors line-clamp-2">
+                    <h3 className="font-serif text-xl md:text-2xl font-semibold text-[#194C4C] mb-4 group-hover:text-[#3A9387] transition-colors line-clamp-2">
                       {insight.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-sm sm:text-base text-[#194C4C]/70 leading-relaxed mb-4 sm:mb-6 line-clamp-3">
+                    <p className="text-base text-[#194C4C]/70 leading-relaxed mb-6 line-clamp-3">
                       {insight.excerpt}
                     </p>
 
                     {/* Date */}
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-[#194C4C]/60 mb-4">
-                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <div className="flex items-center gap-2 text-sm text-[#194C4C]/60 mb-6">
+                      <Calendar className="w-4 h-4" />
                       {insight.date}
                     </div>
 
@@ -315,30 +321,30 @@ const Insights = () => {
       <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-[#3A9387] to-[#3A9387]/90 rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 text-center relative overflow-hidden">
+            <div className="bg-gradient-to-r from-[#3A9387] to-[#3A9387]/90 rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden">
               {/* Decorative Elements */}
-              <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-white/10 rounded-full -mr-24 sm:-mr-32 -mt-24 sm:-mt-32"></div>
-              <div className="absolute bottom-0 left-0 w-32 sm:w-48 h-32 sm:h-48 bg-white/10 rounded-full -ml-16 sm:-ml-24 -mb-16 sm:-mb-24"></div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
               
               <div className="relative z-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full mb-4 sm:mb-6">
-                  <i className="fas fa-envelope-open-text text-2xl sm:text-3xl md:text-4xl text-[#F79120]"></i>
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-6">
+                  <i className="fas fa-envelope-open-text text-4xl text-[#F79120]"></i>
                 </div>
-                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-white mb-3 sm:mb-4">
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6">
                   Get Insights Delivered
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
+                <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
                   Join our newsletter for weekly insights on branding, strategy, and growth. No fluff. Just ideas worth your time.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
+                <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                   <input
                     type="email"
                     placeholder="Your email address"
-                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full text-[#194C4C] placeholder:text-[#194C4C]/50 focus:outline-none focus:ring-2 focus:ring-[#F79120] text-sm sm:text-base"
+                    className="flex-1 px-6 py-4 rounded-full text-[#194C4C] placeholder:text-[#194C4C]/50 focus:outline-none focus:ring-2 focus:ring-[#F79120]"
                   />
-                  <button className="inline-flex items-center justify-center gap-2 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-6 sm:px-8 py-3 sm:py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg text-sm sm:text-base whitespace-nowrap">
+                  <button className="inline-flex items-center justify-center gap-2 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg whitespace-nowrap">
                     Subscribe
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
               </div>

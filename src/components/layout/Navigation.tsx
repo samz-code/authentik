@@ -52,23 +52,27 @@ export function Navigation() {
         )}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-18 md:h-20">
+          <div className="flex items-center h-16 sm:h-18 md:h-20">
             {/* Logo */}
             <Link
               to="/"
-              className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-[#194C4C] hover:text-[#3A9387] transition-colors duration-300 z-50"
+              className="absolute left-1/2 -translate-x-1/2 lg:relative lg:left-0 lg:translate-x-0 z-50 transition-opacity duration-300 hover:opacity-80 flex-shrink-0"
             >
-              Authentik
+              <img 
+                src="/logo.png" 
+                alt="Authentik" 
+                className="h-10 sm:h-12 md:h-14 w-auto"
+              />
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <div className="hidden lg:flex items-center gap-8 xl:gap-10 mx-auto">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
                   className={cn(
-                    "text-base xl:text-lg font-medium transition-all duration-300 relative group",
+                    "text-base xl:text-lg font-medium transition-all duration-300 relative group whitespace-nowrap",
                     location.pathname === link.href
                       ? "text-[#3A9387]"
                       : "text-[#194C4C] hover:text-[#3A9387]"
@@ -88,7 +92,7 @@ export function Navigation() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center flex-shrink-0">
               <Button
                 variant="whatsapp"
                 size="default"
@@ -109,7 +113,7 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden p-2 text-[#194C4C] hover:text-[#3A9387] transition-colors z-50"
+              className="lg:hidden p-2 text-[#194C4C] hover:text-[#3A9387] transition-colors z-50 ml-auto"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
