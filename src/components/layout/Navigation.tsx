@@ -45,19 +45,18 @@ export function Navigation() {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300",
           isScrolled
             ? "shadow-lg"
             : "shadow-md"
         )}
-        style={{ backgroundColor: '#1a4d4d' }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-18 md:h-20">
             {/* Logo */}
             <Link
               to="/"
-              className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-white hover:text-yellow-400 transition-colors duration-300 z-50"
+              className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-[#194C4C] hover:text-[#3A9387] transition-colors duration-300 z-50"
             >
               Authentik
             </Link>
@@ -71,14 +70,14 @@ export function Navigation() {
                   className={cn(
                     "text-base xl:text-lg font-medium transition-all duration-300 relative group",
                     location.pathname === link.href
-                      ? "text-yellow-400"
-                      : "text-white hover:text-yellow-400"
+                      ? "text-[#3A9387]"
+                      : "text-[#194C4C] hover:text-[#3A9387]"
                   )}
                 >
                   {link.name}
                   <span
                     className={cn(
-                      "absolute -bottom-1 left-0 h-0.5 bg-yellow-400 transition-all duration-300",
+                      "absolute -bottom-1 left-0 h-0.5 bg-[#3A9387] transition-all duration-300",
                       location.pathname === link.href
                         ? "w-full"
                         : "w-0 group-hover:w-full"
@@ -110,7 +109,7 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden p-2 text-white hover:text-yellow-400 transition-colors z-50"
+              className="lg:hidden p-2 text-[#194C4C] hover:text-[#3A9387] transition-colors z-50"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
@@ -136,10 +135,9 @@ export function Navigation() {
       {/* Mobile Menu Slide-in Panel */}
       <div
         className={cn(
-          "lg:hidden fixed top-0 right-0 bottom-0 w-full sm:w-80 z-40 transition-transform duration-300 ease-in-out shadow-2xl overflow-y-auto"
+          "lg:hidden fixed top-0 right-0 bottom-0 w-full sm:w-80 bg-white z-40 transition-transform duration-300 ease-in-out shadow-2xl overflow-y-auto"
         )}
         style={{ 
-          backgroundColor: '#1a4d4d',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)'
         }}
       >
@@ -150,10 +148,10 @@ export function Navigation() {
                 key={link.name}
                 to={link.href}
                 className={cn(
-                  "text-2xl sm:text-3xl font-medium transition-all duration-300 py-2 border-b hover:border-yellow-400 hover:pl-4",
+                  "text-2xl sm:text-3xl font-medium transition-all duration-300 py-2 border-b hover:border-[#3A9387] hover:pl-4",
                   location.pathname === link.href
-                    ? "text-yellow-400 border-yellow-400"
-                    : "text-white border-white/20"
+                    ? "text-[#3A9387] border-[#3A9387]"
+                    : "text-[#194C4C] border-[#DADFDB]"
                 )}
                 style={{
                   transitionDelay: isOpen ? `${index * 50}ms` : "0ms",
