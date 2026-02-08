@@ -26,7 +26,7 @@ const services = [
       "Develop a visual system rooted in your brand strategy — logo, typography, color, imagery, and guidelines.",
     outcome:
       "A complete visual identity that makes you instantly recognizable and premium.",
-    price: "From $2,500",
+    price: "From $1,200",
     features: ["Logo Design", "Color System", "Typography", "Brand Guidelines"],
   },
   {
@@ -37,7 +37,7 @@ const services = [
       "Define your tone of voice, key messages, and brand narrative. Create templates for consistent communication.",
     outcome:
       "A messaging framework that sounds authentically you — everywhere you show up.",
-    price: "From $1,200",
+    price: "From $800",
     features: ["Voice Guidelines", "Key Messages", "Story Framework", "Content Templates"],
   },
   {
@@ -48,7 +48,7 @@ const services = [
       "Audit your current presence. Build a channel strategy, content pillars, and measurement framework.",
     outcome:
       "A 90-day marketing roadmap with clear KPIs and tactics.",
-    price: "From $1,800",
+    price: "From $1000",
     features: ["Channel Strategy", "Content Pillars", "90-Day Roadmap", "KPI Framework"],
   },
   {
@@ -59,7 +59,7 @@ const services = [
       "Develop content pillars, posting cadence, and creative direction tailored to your audience.",
     outcome:
       "A content calendar and templates you can execute consistently.",
-    price: "From $800",
+    price: "From $600",
     features: ["Content Calendar", "Posting Schedule", "Creative Templates", "Platform Strategy"],
   },
   {
@@ -70,7 +70,7 @@ const services = [
       "Build targeted campaigns across Meta, Google, and relevant platforms with proper tracking.",
     outcome:
       "Optimized campaigns with clear ROAS and scaling potential.",
-    price: "From $1,000/mo",
+    price: "From $500/mo",
     features: ["Campaign Setup", "Audience Targeting", "Creative Testing", "Performance Tracking"],
   },
   {
@@ -81,7 +81,7 @@ const services = [
       "Identify the right creators, structure collaborations, and manage relationships.",
     outcome:
       "Authentic partnerships that expand reach and build trust.",
-    price: "From $1,500",
+    price: "From $700",
     features: ["Influencer Research", "Partnership Strategy", "Campaign Management", "ROI Tracking"],
   },
   {
@@ -92,7 +92,7 @@ const services = [
       "Set up automated flows for inquiries, bookings, and follow-ups while maintaining a human touch.",
     outcome:
       "24/7 responsiveness without losing the personal connection.",
-    price: "From $600",
+    price: "From $100/Mon",
     features: ["Automated Responses", "Lead Capture", "Booking Flows", "CRM Integration"],
   },
 ];

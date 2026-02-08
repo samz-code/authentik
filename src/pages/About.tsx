@@ -290,8 +290,179 @@ const About = () => {
         </div>
       </SectionWrapper>
 
-      {/* CTA Section */}
+      {/* Earn With Us Section */}
       <SectionWrapper>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-12 md:mb-16">
+              <div className="inline-block mb-6">
+                <span className="text-sm font-bold tracking-wider text-[#F79120] bg-[#F79120]/10 px-4 py-2 rounded-full uppercase">
+                  Join The Community
+                </span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-[#194C4C] mb-6">
+                Earn <span className="text-[#F79120]">With Us</span>
+              </h2>
+              <p className="text-lg md:text-xl text-[#194C4C]/70 max-w-3xl mx-auto leading-relaxed">
+                We believe in the power of community. Whether you're a creator, freelancer, or business, there's a place for you in the Authentik network. Let's grow together.
+              </p>
+              <div className="w-24 h-1 bg-[#F79120] mx-auto rounded-full mt-6"></div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+              {/* Left Column - Partnership Types */}
+              <div className="space-y-6">
+                {/* Content Creators */}
+                <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#F79120]">
+                  <div className="w-14 h-14 bg-[#F79120]/10 rounded-2xl flex items-center justify-center mb-6">
+                    <i className="fas fa-camera text-2xl text-[#F79120]"></i>
+                  </div>
+                  <h3 className="font-serif text-2xl font-semibold text-[#194C4C] mb-3">
+                    Content Creators
+                  </h3>
+                  <p className="text-base text-[#194C4C]/70 leading-relaxed">
+                    Photographers, videographers, and creatives who want to collaborate on exciting brand projects.
+                  </p>
+                </div>
+
+                {/* Freelancers */}
+                <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#3A9387]">
+                  <div className="w-14 h-14 bg-[#3A9387]/10 rounded-2xl flex items-center justify-center mb-6">
+                    <i className="fas fa-laptop text-2xl text-[#3A9387]"></i>
+                  </div>
+                  <h3 className="font-serif text-2xl font-semibold text-[#194C4C] mb-3">
+                    Freelancers
+                  </h3>
+                  <p className="text-base text-[#194C4C]/70 leading-relaxed">
+                    Marketing specialists, copywriters, and designers looking for consistent, quality work.
+                  </p>
+                </div>
+
+                {/* Affiliates */}
+                <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#F79120]">
+                  <div className="w-14 h-14 bg-[#F79120]/10 rounded-2xl flex items-center justify-center mb-6">
+                    <i className="fas fa-dollar-sign text-2xl text-[#F79120]"></i>
+                  </div>
+                  <h3 className="font-serif text-2xl font-semibold text-[#194C4C] mb-3">
+                    Affiliates
+                  </h3>
+                  <p className="text-base text-[#194C4C]/70 leading-relaxed">
+                    Earn commissions by referring businesses to Authentik. Simple, transparent, rewarding.
+                  </p>
+                </div>
+
+                {/* Agency Partners */}
+                <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#3A9387]">
+                  <div className="w-14 h-14 bg-[#3A9387]/10 rounded-2xl flex items-center justify-center mb-6">
+                    <i className="fas fa-handshake text-2xl text-[#3A9387]"></i>
+                  </div>
+                  <h3 className="font-serif text-2xl font-semibold text-[#194C4C] mb-3">
+                    Agency Partners
+                  </h3>
+                  <p className="text-base text-[#194C4C]/70 leading-relaxed">
+                    Agencies and consultants who want to offer expanded services through collaboration.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column - Referral CTA */}
+              <div className="relative">
+                <div className="sticky top-8">
+                  <div className="bg-gradient-to-br from-[#194C4C] to-[#3A9387] rounded-3xl shadow-2xl overflow-hidden">
+                    {/* Background Image */}
+                    <div className="relative h-full min-h-[600px] flex flex-col">
+                      <div className="absolute inset-0">
+                        <img 
+                          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop"
+                          alt="Zanzibar partnership"
+                          className="w-full h-full object-cover opacity-20"
+                        />
+                      </div>
+                      
+                      <div className="relative z-10 p-8 md:p-12 flex flex-col justify-between h-full">
+
+                        {/* Main Content */}
+                        <div className="text-center my-auto">
+                          <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                            We're Looking For New Clients In ZANZIBAR
+                          </h3>
+                          <div className="w-16 h-1 bg-[#F79120] mx-auto rounded-full mb-6"></div>
+                          <p className="text-2xl md:text-3xl font-bold text-white mb-8">
+                            HELP US CONNECT!
+                          </p>
+                        </div>
+
+                        {/* CTA */}
+                        <div className="text-center">
+                          <p className="text-white/90 text-sm mb-4">
+                            WhatsApp: 0777 296 026 to get started
+                          </p>
+                          <p className="text-white/70 text-sm mb-6">
+                            Let's grow together
+                          </p>
+                          <a
+                            href="https://wa.me/255777296026?text=Hi%2C%20I%27d%20like%20to%20join%20the%20Authentik%20network"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-3 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+                          >
+                            <i className="fab fa-whatsapp text-xl"></i>
+                            Join Our Network
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Stats Badge */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-xl px-6 py-4 border-2 border-[#DADFDB]">
+                    <div className="flex items-center gap-3">
+                      <div className="flex -space-x-2">
+                        <div className="w-10 h-10 rounded-full bg-[#3A9387] border-2 border-white flex items-center justify-center">
+                          <i className="fas fa-user text-white text-sm"></i>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-[#F79120] border-2 border-white flex items-center justify-center">
+                          <i className="fas fa-user text-white text-sm"></i>
+                        </div>
+                        <div className="w-10 h-10 rounded-full bg-[#194C4C] border-2 border-white flex items-center justify-center">
+                          <i className="fas fa-user text-white text-sm"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold text-[#194C4C]">50+ active partners</p>
+                        <p className="text-xs text-[#194C4C]/60">Growing daily</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Referral Program Highlight */}
+            <div className="bg-gradient-to-r from-[#F79120] to-[#E17C47] rounded-3xl shadow-2xl p-8 md:p-12 text-center text-white mt-16">
+              <h3 className="font-serif text-3xl md:text-4xl font-semibold mb-4">
+                Refer & Earn 300K!
+              </h3>
+              <p className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl mx-auto">
+                Know a business in Zanzibar that needs our services? Refer them and earn up to 300,000 TZS per successful referral.
+              </p>
+              <a
+                href="https://wa.me/255777296026?text=Hi%2C%20I%20have%20a%20referral%20for%20Authentik"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-white hover:bg-[#DADFDB] text-[#194C4C] font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+              >
+                Start Referring
+                <i className="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </SectionWrapper>
+
+      {/* CTA Section */}
+      <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-[#3A9387] rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 text-center">
             <i className="fas fa-handshake text-5xl md:text-6xl text-[#F79120] mb-6"></i>
