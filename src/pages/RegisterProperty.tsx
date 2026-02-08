@@ -59,12 +59,77 @@ const benefits = [
 
 const RegisterProperty = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In production, this would submit to a backend
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Get form data
+    const form = new FormData(e.target);
+    const data = {
+      name: form.get('name'),
+      email: form.get('email'),
+      phone: form.get('phone'),
+      location: form.get('location'),
+      type: form.get('type'),
+      units: form.get('units'),
+      bedrooms: form.get('bedrooms'),
+      bathrooms: form.get('bathrooms'),
+      listed: form.get('listed'),
+      listingLink: form.get('listing-link'),
+      notes: form.get('notes'),
+    };
+
+    // Store for potential use
+    setFormData(data);
+
+    // Create email body
+    const emailBody = `
+New Property Registration Submission
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OWNER DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROPERTY DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Location: ${data.location || 'Not specified'}
+Property Type: ${data.type || 'Not specified'}
+Units: ${data.units || 'Not specified'}
+Bedrooms: ${data.bedrooms || 'Not specified'}
+Bathrooms: ${data.bathrooms || 'Not specified'}
+Already Listed: ${data.listed || 'No'}
+Listing Link: ${data.listingLink || 'N/A'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ADDITIONAL NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${data.notes || 'None'}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Submitted: ${new Date().toLocaleString('en-US', { 
+      dateStyle: 'full', 
+      timeStyle: 'short',
+      timeZone: 'Africa/Dar_es_Salaam' 
+    })} EAT
+    `.trim();
+
+    // Create mailto link
+    const subject = `Property Registration - ${data.name}`;
+    const mailtoLink = `mailto:chat@authentik.tz?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Show success message after a brief delay
+    setTimeout(() => {
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 500);
   };
 
   if (submitted) {
@@ -208,28 +273,31 @@ const RegisterProperty = () => {
                   <div>
                     <Label htmlFor="name" className="text-[#194C4C] font-medium text-base mb-2 block">Full Name *</Label>
                     <Input 
-                      id="name" 
+                      id="name"
+                      name="name"
                       required 
                       className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base" 
-                      placeholder="John Doe"
+                      placeholder="Christine Kawira"
                     />
                   </div>
 
                   <div>
                     <Label htmlFor="email" className="text-[#194C4C] font-medium text-base mb-2 block">Email *</Label>
                     <Input 
-                      id="email" 
+                      id="email"
+                      name="email"
                       type="email" 
                       required 
                       className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base" 
-                      placeholder="john@example.com"
+                      placeholder="kawira@example.com"
                     />
                   </div>
 
                   <div>
                     <Label htmlFor="phone" className="text-[#194C4C] font-medium text-base mb-2 block">Phone / WhatsApp *</Label>
                     <Input 
-                      id="phone" 
+                      id="phone"
+                      name="phone"
                       type="tel" 
                       required 
                       className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base" 
@@ -249,14 +317,13 @@ const RegisterProperty = () => {
 
                   <div>
                     <Label htmlFor="location" className="text-[#194C4C] font-medium text-base mb-2 block">Property Location *</Label>
-                    <Select required>
+                    <Select name="location" required>
                       <SelectTrigger className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl">
                         <SelectValue placeholder="Select area" />
                       </SelectTrigger>
                       <SelectContent>
                         {locations.map((location) => (
-                          <SelectItem key={location} value={location.toLowerCase()}>
-                            <i className="fas fa-map-marker-alt text-[#3A9387] mr-2"></i>
+                          <SelectItem key={location} value={location}>
                             {location}
                           </SelectItem>
                         ))}
@@ -266,14 +333,13 @@ const RegisterProperty = () => {
 
                   <div>
                     <Label htmlFor="type" className="text-[#194C4C] font-medium text-base mb-2 block">Property Type *</Label>
-                    <Select required>
+                    <Select name="type" required>
                       <SelectTrigger className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl">
                         <SelectValue placeholder="Select type" />
                       </SelectTrigger>
                       <SelectContent>
                         {propertyTypes.map((type) => (
-                          <SelectItem key={type} value={type.toLowerCase()}>
-                            <i className="fas fa-home text-[#3A9387] mr-2"></i>
+                          <SelectItem key={type} value={type}>
                             {type}
                           </SelectItem>
                         ))}
@@ -286,6 +352,7 @@ const RegisterProperty = () => {
                       <Label htmlFor="units" className="text-[#194C4C] font-medium text-base mb-2 block">Units</Label>
                       <Input
                         id="units"
+                        name="units"
                         type="number"
                         min="1"
                         defaultValue="1"
@@ -296,6 +363,7 @@ const RegisterProperty = () => {
                       <Label htmlFor="bedrooms" className="text-[#194C4C] font-medium text-base mb-2 block">Bedrooms</Label>
                       <Input
                         id="bedrooms"
+                        name="bedrooms"
                         type="number"
                         min="1"
                         className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base"
@@ -306,6 +374,7 @@ const RegisterProperty = () => {
                       <Label htmlFor="bathrooms" className="text-[#194C4C] font-medium text-base mb-2 block">Bathrooms</Label>
                       <Input
                         id="bathrooms"
+                        name="bathrooms"
                         type="number"
                         min="1"
                         className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base"
@@ -318,7 +387,7 @@ const RegisterProperty = () => {
                     <Label className="mb-3 block text-[#194C4C] font-medium text-base">
                       Is your property already listed? *
                     </Label>
-                    <RadioGroup defaultValue="no" className="flex gap-6">
+                    <RadioGroup name="listed" defaultValue="no" className="flex gap-6">
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="yes" id="listed-yes" className="border-[#DADFDB]" />
                         <Label htmlFor="listed-yes" className="font-normal text-[#194C4C]/70">
@@ -340,6 +409,7 @@ const RegisterProperty = () => {
                     </Label>
                     <Input
                       id="listing-link"
+                      name="listing-link"
                       type="url"
                       placeholder="https://airbnb.com/..."
                       className="h-12 border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base"
@@ -350,6 +420,7 @@ const RegisterProperty = () => {
                     <Label htmlFor="notes" className="text-[#194C4C] font-medium text-base mb-2 block">Additional Notes</Label>
                     <Textarea
                       id="notes"
+                      name="notes"
                       placeholder="Tell us anything else about your property or goals..."
                       className="min-h-[140px] border-2 border-[#DADFDB] focus:border-[#3A9387] focus:ring-[#3A9387] rounded-xl text-base"
                     />

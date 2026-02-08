@@ -234,7 +234,7 @@ const Properties = () => {
                       rel="noopener noreferrer"
                       className="flex-1 inline-flex items-center justify-center gap-2 bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold px-4 py-3 rounded-full transition-all duration-300 text-sm"
                     >
-                      Book Now
+                     View on Airbnb
                       <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>

@@ -1,59 +1,19 @@
 const clients = [
   { 
-    name: "Nike", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg"
+    name: "Aruba", 
+    logo: "/aruba.png"
   },
   { 
-    name: "Adidas", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg"
+    name: "Kwetu-Kwenu", 
+    logo: "/kwetu.png"
   },
   { 
-    name: "Apple", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+    name: "Reigns Clinic", 
+    logo: "/reigns.png"
   },
   { 
-    name: "Google", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
-  },
-  { 
-    name: "Microsoft", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg"
-  },
-  { 
-    name: "Amazon", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-  },
-  { 
-    name: "Coca-Cola", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg"
-  },
-  { 
-    name: "Samsung", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg"
-  },
-  { 
-    name: "IBM", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"
-  },
-  { 
-    name: "Intel", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Intel_logo_%282006-2020%29.svg"
-  },
-  { 
-    name: "Sony", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg"
-  },
-  { 
-    name: "Toyota", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota.svg"
-  },
-  { 
-    name: "BMW", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg"
-  },
-  { 
-    name: "Mercedes-Benz", 
-    logo: "https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg"
+    name: "MB Luxury Shoes", 
+    logo: "/mb.png"
   },
 ];
 
@@ -137,13 +97,13 @@ export function ClientsSection() {
 
         .logo-item {
           flex-shrink: 0;
-          width: 180px;
-          height: 80px;
+          width: 280px;
+          height: 140px;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px;
-          opacity: 0.6;
+          padding: 30px;
+          opacity: 0.7;
           filter: grayscale(100%);
           transition: all 0.3s ease;
         }
@@ -151,7 +111,7 @@ export function ClientsSection() {
         .logo-item:hover {
           opacity: 1;
           filter: grayscale(0%);
-          transform: scale(1.1);
+          transform: scale(1.05);
         }
 
         @keyframes scroll {
@@ -166,9 +126,9 @@ export function ClientsSection() {
         /* Responsive adjustments */
         @media (max-width: 768px) {
           .logo-item {
-            width: 140px;
-            height: 60px;
-            padding: 15px;
+            width: 220px;
+            height: 110px;
+            padding: 25px;
           }
 
           .logo-scroll-track {
@@ -178,9 +138,9 @@ export function ClientsSection() {
 
         @media (max-width: 480px) {
           .logo-item {
-            width: 120px;
-            height: 50px;
-            padding: 10px;
+            width: 180px;
+            height: 90px;
+            padding: 20px;
           }
 
           .logo-scroll-track {

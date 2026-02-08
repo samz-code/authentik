@@ -32,17 +32,17 @@ const values = [
 
 const carouselImages = [
   {
-    url: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&h=800&fit=crop",
+    url: "/referimage.jpg",
     alt: "Team collaboration",
     caption: "Building Authentic Brands Together"
   },
   {
-    url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&h=800&fit=crop",
+    url: "/bajaji.jpg",
     alt: "Creative workspace",
     caption: "Where Creativity Meets Strategy"
   },
   {
-    url: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop",
+    url: "/team.jpg",
     alt: "Team meeting",
     caption: "Collaborative Excellence"
   },
@@ -374,7 +374,7 @@ const About = () => {
                     <div className="relative h-full min-h-[600px] flex flex-col">
                       <div className="absolute inset-0">
                         <img 
-                          src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop"
+                          src="/referimage.jpg" 
                           alt="Zanzibar partnership"
                           className="w-full h-full object-cover opacity-20"
                         />
