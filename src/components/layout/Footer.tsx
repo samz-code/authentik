@@ -165,7 +165,7 @@ export function Footer() {
               <p className="text-sm text-white/60">
                 © {new Date().getFullYear()} Authentik. All rights reserved.
               </p>
-              <div className="flex items-center gap-6 text-sm">
+              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm">
                 <Link to="/privacy" className="text-white/60 hover:text-[#F79120] transition-colors">
                   Privacy Policy
                 </Link>
@@ -176,9 +176,18 @@ export function Footer() {
                   href="https://wayreal.co"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/60 hover:text-[#F79120] transition-colors"
+                  className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium"
                 >
                   A Wayreal Creative Hub brand
+                </a>
+                <span className="text-white/30 hidden md:inline">|</span>
+                <a
+                  href="https://www.emonisamuel.co.ke"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/60 hover:text-[#F79120] transition-colors"
+                >
+                  Developer: Emoni Samuel
                 </a>
               </div>
             </div>
@@ -314,7 +323,7 @@ export function Footer() {
             <p className="text-sm text-white/60">
               © {new Date().getFullYear()} Authentik. All rights reserved.
             </p>
-            <div className="flex flex-col gap-2 text-sm">
+            <div className="flex flex-col gap-3 text-sm">
               <div className="flex justify-center gap-4">
                 <Link to="/privacy" className="text-white/60 hover:text-[#F79120] transition-colors">
                   Privacy
@@ -328,9 +337,17 @@ export function Footer() {
                 href="https://wayreal.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/60 hover:text-[#F79120] transition-colors"
+                className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium"
               >
                 A Wayreal Creative Hub brand
+              </a>
+              <a
+                href="https://www.emonisamuel.co.ke"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/60 hover:text-[#F79120] transition-colors"
+              >
+                Developer: Emoni Samuel
               </a>
             </div>
           </div>
