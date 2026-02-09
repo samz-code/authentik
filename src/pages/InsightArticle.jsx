@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { 
-  ArrowLeft, Calendar, Clock, Tag, Twitter, Linkedin, Facebook, 
-  Eye, Bookmark, Share2, CheckCircle, TrendingUp, Target, 
-  Lightbulb, MessageCircle, Mail, BookOpen
+  ArrowLeft, Calendar, Clock, Tag, Eye, Bookmark, Share2, 
+  TrendingUp, Target, Lightbulb, MessageCircle, BookOpen, Send
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { 
+  FaTwitter, 
+  FaLinkedinIn, 
+  FaFacebookF, 
+  FaWhatsapp,
+  FaEnvelope 
+} from 'react-icons/fa';
 
-// Article database with complete data
+// Complete Article Database - All 8 Articles
 const articlesData = {
   "why-brands-dont-convert": {
     title: "Why Most Brands Don't Convert — Even With \"Good Marketing\"",
@@ -21,7 +27,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "issue", title: "The Real Issue Isn't Effort — It's Alignment" },
@@ -146,7 +152,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "meaning", title: "What Authenticity Actually Means in Business" },
@@ -260,7 +266,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "noise", title: "Visibility Without Positioning Creates Noise" },
@@ -371,7 +377,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "what-makes-luxury", title: "What Makes a Brand Feel \"Luxury\"" },
@@ -487,7 +493,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Property Specialists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "listing-not-positioning", title: "Listing Is Not Positioning" },
@@ -619,7 +625,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Growth Strategists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "problem", title: "The Problem With Manual WhatsApp Communication" },
@@ -738,7 +744,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Brand Strategists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "scapegoat", title: "When Marketing Becomes a Scapegoat" },
@@ -858,7 +864,7 @@ const articlesData = {
     author: {
       name: "Authentik Team",
       role: "Property Specialists",
-      avatar: "AT"
+      avatar: "/AM.png"
     },
     tableOfContents: [
       { id: "passive-vs-managed", title: "A Listing Is Passive. An Asset Is Managed." },
@@ -965,12 +971,13 @@ const articlesData = {
   }
 };
 
+// Table of Contents Component
 const TableOfContents = ({ items, activeId }) => {
   return (
-    <div className="hidden lg:block sticky top-24">
-      <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-[#DADFDB]">
+    <div className="sticky top-24 animate-fadeIn">
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#DADFDB]/30">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-xl flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-lg flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
           <h4 className="font-serif text-lg font-semibold text-[#194C4C]">
@@ -978,23 +985,23 @@ const TableOfContents = ({ items, activeId }) => {
           </h4>
         </div>
         <nav>
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {items.map((item, index) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className={`flex items-center gap-3 text-sm py-3 px-4 rounded-xl transition-all duration-300 ${
+                  className={`flex items-start gap-3 text-sm py-3 px-3 rounded-lg transition-all duration-200 ${
                     activeId === item.id
-                      ? "bg-gradient-to-r from-[#3A9387] to-[#194C4C] text-white font-semibold shadow-md transform scale-105"
-                      : "text-[#194C4C]/70 hover:bg-[#DADFDB]/50 hover:text-[#3A9387] hover:translate-x-1"
+                      ? "bg-gradient-to-r from-[#3A9387] to-[#194C4C] text-white font-medium"
+                      : "text-[#194C4C]/70 hover:bg-[#DADFDB]/30 hover:text-[#3A9387]"
                   }`}
                 >
-                  <span className={`flex-shrink-0 w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold transition-all ${
-                    activeId === item.id ? "bg-white/20" : "bg-[#DADFDB] text-[#3A9387]"
+                  <span className={`flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold ${
+                    activeId === item.id ? "bg-white/20" : "bg-[#DADFDB]/50 text-[#3A9387]"
                   }`}>
                     {index + 1}
                   </span>
-                  <span className="flex-1 leading-tight">{item.title}</span>
+                  <span className="flex-1 leading-snug">{item.title}</span>
                 </a>
               </li>
             ))}
@@ -1002,16 +1009,16 @@ const TableOfContents = ({ items, activeId }) => {
         </nav>
 
         {/* Quick Actions */}
-        <div className="mt-8 pt-6 border-t-2 border-[#DADFDB]">
-          <p className="text-xs font-semibold text-[#194C4C]/60 uppercase tracking-wider mb-3">
+        <div className="mt-6 pt-6 border-t border-[#DADFDB]/30">
+          <p className="text-xs font-semibold text-[#194C4C]/50 uppercase tracking-wider mb-3">
             Quick Actions
           </p>
           <div className="space-y-2">
-            <button className="w-full flex items-center gap-3 text-sm py-3 px-4 rounded-xl text-[#194C4C]/70 hover:bg-[#3A9387]/10 hover:text-[#3A9387] transition-all">
+            <button className="w-full flex items-center gap-3 text-sm py-2.5 px-3 rounded-lg text-[#194C4C]/70 hover:bg-[#3A9387]/10 hover:text-[#3A9387] transition-all">
               <Share2 className="w-4 h-4" />
               <span>Share Article</span>
             </button>
-            <button className="w-full flex items-center gap-3 text-sm py-3 px-4 rounded-xl text-[#194C4C]/70 hover:bg-[#F79120]/10 hover:text-[#F79120] transition-all">
+            <button className="w-full flex items-center gap-3 text-sm py-2.5 px-3 rounded-lg text-[#194C4C]/70 hover:bg-[#F79120]/10 hover:text-[#F79120] transition-all">
               <Bookmark className="w-4 h-4" />
               <span>Save for Later</span>
             </button>
@@ -1022,6 +1029,7 @@ const TableOfContents = ({ items, activeId }) => {
   );
 };
 
+// Reading Progress Bar Component
 const ReadingProgress = () => {
   const [progress, setProgress] = useState(0);
 
@@ -1039,15 +1047,16 @@ const ReadingProgress = () => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-1 bg-[#DADFDB] z-50">
+    <div className="fixed top-0 left-0 w-full h-1 bg-[#DADFDB]/30 z-50">
       <div 
-        className="h-full bg-gradient-to-r from-[#3A9387] via-[#F79120] to-[#E17C47] transition-all duration-300 shadow-lg"
+        className="h-full bg-gradient-to-r from-[#3A9387] via-[#F79120] to-[#E17C47] transition-all duration-150"
         style={{ width: `${progress}%` }}
       />
     </div>
   );
 };
 
+// Main Component
 const InsightArticle = () => {
   const { slug } = useParams();
   const article = articlesData[slug];
@@ -1062,7 +1071,7 @@ const InsightArticle = () => {
         const element = document.getElementById(id);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          return rect.top <= 120 && rect.bottom >= 120;
         }
         return false;
       });
@@ -1070,6 +1079,7 @@ const InsightArticle = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [article]);
 
@@ -1079,8 +1089,8 @@ const InsightArticle = () => {
       <Layout>
         <SectionWrapper>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center py-20">
-              <div className="w-24 h-24 bg-[#DADFDB] rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="max-w-4xl mx-auto text-center py-20 animate-fadeIn">
+              <div className="w-24 h-24 bg-[#DADFDB]/30 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Eye className="w-12 h-12 text-[#194C4C]/40" />
               </div>
               <h1 className="font-serif text-4xl font-semibold text-[#194C4C] mb-4">
@@ -1091,7 +1101,7 @@ const InsightArticle = () => {
               </p>
               <Link
                 to="/insights"
-                className="inline-flex items-center gap-2 bg-[#3A9387] hover:bg-[#194C4C] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center gap-2 bg-[#3A9387] hover:bg-[#194C4C] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Insights
@@ -1109,17 +1119,16 @@ const InsightArticle = () => {
       <Layout>
         <SectionWrapper>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto animate-fadeIn">
               <Link
                 to="/insights"
-                className="inline-flex items-center gap-2 text-sm sm:text-base text-[#3A9387] hover:text-[#E17C47] font-semibold mb-8 transition-all group bg-[#3A9387]/10 hover:bg-[#E17C47]/10 px-4 py-2 rounded-full"
+                className="inline-flex items-center gap-2 text-sm sm:text-base text-[#3A9387] hover:text-[#194C4C] font-medium mb-8 transition-all group"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 Back to Insights
               </Link>
 
-              {/* Featured Image */}
-              <div className="rounded-3xl overflow-hidden mb-8 shadow-2xl">
+              <div className="rounded-2xl overflow-hidden mb-8 shadow-lg animate-slideUp">
                 <img 
                   src={article.featuredImage} 
                   alt={article.title}
@@ -1127,12 +1136,12 @@ const InsightArticle = () => {
                 />
               </div>
 
-              <div className="bg-gradient-to-br from-white via-[#DADFDB]/20 to-white rounded-3xl p-8 md:p-12 lg:p-16 text-center shadow-2xl border-2 border-[#DADFDB]">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#F79120] to-[#E17C47] rounded-2xl mb-6 shadow-lg">
-                  <Lightbulb className="w-10 h-10 text-white" />
+              <div className="bg-gradient-to-br from-white to-[#DADFDB]/10 rounded-2xl p-8 md:p-12 lg:p-16 text-center shadow-sm border border-[#DADFDB]/30 animate-slideUp" style={{animationDelay: '0.1s'}}>
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#F79120] to-[#E17C47] rounded-xl mb-6">
+                  <Lightbulb className="w-8 h-8 text-white" />
                 </div>
                 
-                <span className="inline-block px-5 py-2.5 bg-gradient-to-r from-[#F79120] to-[#E17C47] text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-6 shadow-md">
+                <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#F79120] to-[#E17C47] text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-6">
                   Coming Soon
                 </span>
 
@@ -1141,28 +1150,24 @@ const InsightArticle = () => {
                 </h1>
 
                 <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
-                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60 bg-white px-4 py-2 rounded-full shadow-sm">
+                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60">
                     <Tag className="w-4 h-4 text-[#3A9387]" />
                     {article.category}
                   </span>
-                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60 bg-white px-4 py-2 rounded-full shadow-sm">
+                  <span className="inline-flex items-center gap-2 text-sm text-[#194C4C]/60">
                     <Clock className="w-4 h-4 text-[#F79120]" />
                     {article.readTime}
                   </span>
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#3A9387] bg-[#3A9387]/10 px-4 py-2 rounded-full">
-                    <Eye className="w-4 h-4" />
-                    {article.views} views
-                  </span>
                 </div>
 
-                <p className="text-lg text-[#194C4C]/70 mb-10 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-lg text-[#194C4C]/70 mb-10 max-w-2xl mx-auto">
                   This article is currently being written by our team. Check back soon for valuable insights on this topic.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     to="/insights"
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#3A9387] to-[#194C4C] hover:from-[#194C4C] hover:to-[#3A9387] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+                    className="inline-flex items-center justify-center gap-2 bg-[#3A9387] hover:bg-[#194C4C] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300"
                   >
                     <TrendingUp className="w-5 h-5" />
                     Browse Other Articles
@@ -1171,9 +1176,9 @@ const InsightArticle = () => {
                     href="https://wa.me/255777296026"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
+                    className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300"
                   >
-                    <MessageCircle className="w-5 h-5" />
+                    <FaWhatsapp className="w-5 h-5" />
                     Ask Us Anything
                   </a>
                 </div>
@@ -1190,34 +1195,33 @@ const InsightArticle = () => {
     <Layout>
       <ReadingProgress />
 
-      {/* Featured Image Hero */}
-      <div className="relative min-h-[500px] sm:min-h-[600px] md:min-h-[700px] overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative min-h-[400px] sm:min-h-[500px] md:min-h-[600px] overflow-hidden">
         <img 
           src={article.featuredImage} 
           alt={article.title}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover animate-kenBurns"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#194C4C] via-[#194C4C]/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#194C4C] via-[#194C4C]/70 to-transparent"></div>
         
-        {/* Title Overlay */}
         <div className="relative h-full flex items-end">
-          <div className="w-full p-6 sm:p-8 md:p-12 lg:p-16 pb-12 sm:pb-16 md:pb-20">
+          <div className="w-full p-6 sm:p-8 md:p-12 lg:p-16 pb-12 sm:pb-16 animate-slideUp">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-5xl">
                 <Link
                   to="/insights"
-                  className="inline-flex items-center gap-2 text-sm sm:text-base text-white/90 hover:text-white font-semibold mb-6 sm:mb-8 transition-all group bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full hover:bg-white/20"
+                  className="inline-flex items-center gap-2 text-sm text-white/90 hover:text-white font-medium mb-6 transition-all group"
                 >
                   <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                   Back to Insights
                 </Link>
                 
-                <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-white bg-gradient-to-r from-[#F79120] to-[#E17C47] backdrop-blur-sm px-5 py-2.5 rounded-full mb-6 sm:mb-8 shadow-lg">
-                  <Tag className="w-4 h-4" />
+                <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider text-white bg-[#3A9387]/90 backdrop-blur-sm px-4 py-2 rounded-full mb-6 animate-fadeIn" style={{animationDelay: '0.1s'}}>
+                  <Tag className="w-3.5 h-3.5" />
                   {article.category}
                 </div>
                 
-                <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white leading-[1.2] sm:leading-tight max-w-4xl drop-shadow-2xl">
+                <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight max-w-4xl animate-fadeIn" style={{animationDelay: '0.2s'}}>
                   {article.title}
                 </h1>
               </div>
@@ -1226,27 +1230,31 @@ const InsightArticle = () => {
         </div>
       </div>
 
-      {/* Article Meta & Content */}
+      {/* Article Content */}
       <SectionWrapper>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {/* Meta Bar */}
-            <div className="max-w-4xl mx-auto mb-12">
-              <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-[#DADFDB]">
+            <div className="max-w-4xl mb-12 animate-fadeIn">
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#DADFDB]/30">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                   {/* Author */}
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-[#3A9387] to-[#194C4C] rounded-2xl flex items-center justify-center shadow-md">
-                      <span className="text-white font-semibold text-lg">{article.author.avatar}</span>
+                    <div className="w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-[#DADFDB]/30">
+                      <img 
+                        src={article.author.avatar} 
+                        alt={article.author.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div>
-                      <p className="font-semibold text-base text-[#194C4C]">{article.author.name}</p>
+                      <p className="font-semibold text-[#194C4C]">{article.author.name}</p>
                       <p className="text-sm text-[#194C4C]/60">{article.author.role}</p>
                     </div>
                   </div>
 
                   {/* Stats */}
-                  <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                  <div className="flex flex-wrap items-center gap-4">
                     <span className="flex items-center gap-2 text-sm text-[#194C4C]/60">
                       <Calendar className="w-4 h-4 text-[#3A9387]" />
                       {article.date}
@@ -1255,7 +1263,7 @@ const InsightArticle = () => {
                       <Clock className="w-4 h-4 text-[#F79120]" />
                       {article.readTime}
                     </span>
-                    <span className="flex items-center gap-2 text-sm font-semibold text-[#3A9387] bg-[#3A9387]/10 px-3 py-1.5 rounded-full">
+                    <span className="flex items-center gap-2 text-sm font-medium text-[#3A9387]">
                       <Eye className="w-4 h-4" />
                       {article.views}
                     </span>
@@ -1263,24 +1271,27 @@ const InsightArticle = () => {
                 </div>
 
                 {/* Share Bar */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-6 pt-6 border-t-2 border-[#DADFDB]">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-6 pt-6 border-t border-[#DADFDB]/30">
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-semibold text-[#194C4C]/70">Share:</span>
-                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
-                      <Twitter className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    <span className="text-sm font-medium text-[#194C4C]/70">Share:</span>
+                    <button className="w-9 h-9 bg-[#DADFDB]/30 hover:bg-[#1DA1F2] rounded-lg flex items-center justify-center transition-all duration-200 group">
+                      <FaTwitter className="w-4 h-4 text-[#194C4C]/70 group-hover:text-white transition-colors" />
                     </button>
-                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
-                      <Linkedin className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    <button className="w-9 h-9 bg-[#DADFDB]/30 hover:bg-[#0A66C2] rounded-lg flex items-center justify-center transition-all duration-200 group">
+                      <FaLinkedinIn className="w-4 h-4 text-[#194C4C]/70 group-hover:text-white transition-colors" />
                     </button>
-                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#3A9387] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
-                      <Facebook className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    <button className="w-9 h-9 bg-[#DADFDB]/30 hover:bg-[#1877F2] rounded-lg flex items-center justify-center transition-all duration-200 group">
+                      <FaFacebookF className="w-4 h-4 text-[#194C4C]/70 group-hover:text-white transition-colors" />
                     </button>
-                    <button className="w-10 h-10 bg-[#DADFDB] hover:bg-[#F79120] rounded-xl flex items-center justify-center transition-all duration-300 group shadow-sm hover:shadow-md">
-                      <Mail className="w-4 h-4 text-[#194C4C] group-hover:text-white transition-colors" />
+                    <button className="w-9 h-9 bg-[#DADFDB]/30 hover:bg-[#25D366] rounded-lg flex items-center justify-center transition-all duration-200 group">
+                      <FaWhatsapp className="w-4 h-4 text-[#194C4C]/70 group-hover:text-white transition-colors" />
+                    </button>
+                    <button className="w-9 h-9 bg-[#DADFDB]/30 hover:bg-[#EA4335] rounded-lg flex items-center justify-center transition-all duration-200 group">
+                      <FaEnvelope className="w-4 h-4 text-[#194C4C]/70 group-hover:text-white transition-colors" />
                     </button>
                   </div>
                   
-                  <button className="flex items-center gap-2 text-sm font-semibold text-[#3A9387] hover:text-[#E17C47] transition-colors bg-[#3A9387]/10 hover:bg-[#E17C47]/10 px-4 py-2 rounded-full">
+                  <button className="flex items-center gap-2 text-sm font-medium text-[#3A9387] hover:text-[#194C4C] transition-colors">
                     <Bookmark className="w-4 h-4" />
                     <span>Save Article</span>
                   </button>
@@ -1289,45 +1300,42 @@ const InsightArticle = () => {
             </div>
 
             {/* Main Content with Sidebar */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              {/* Article Content */}
-              <div className="lg:col-span-8">
-                <article 
-                  className="article-content"
-                  dangerouslySetInnerHTML={{ __html: article.content }}
-                />
-
-                {/* Tags */}
-                <div className="mt-12 pt-8 border-t-2 border-[#DADFDB]">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Tag className="w-5 h-5 text-[#3A9387]" />
-                    <p className="text-sm font-semibold text-[#194C4C] uppercase tracking-wider">
-                      Related Topics
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
-                      {article.category}
-                    </span>
-                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
-                      Brand Strategy
-                    </span>
-                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
-                      Marketing
-                    </span>
-                    <span className="px-5 py-2.5 bg-gradient-to-r from-[#3A9387]/10 to-[#194C4C]/10 hover:from-[#3A9387] hover:to-[#194C4C] text-[#194C4C] hover:text-white text-sm font-medium rounded-full transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-[#3A9387] shadow-sm hover:shadow-md">
-                      Growth
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Sidebar */}
-              <aside className="lg:col-span-4">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+              {/* Sidebar - Table of Contents (appears first on desktop, right side) */}
+              <aside className="lg:col-span-4 lg:order-2">
                 {article.tableOfContents && (
                   <TableOfContents items={article.tableOfContents} activeId={activeSection} />
                 )}
               </aside>
+
+              {/* Article Content (appears second on desktop, left side) */}
+              <div className="lg:col-span-8 lg:order-1">
+                <article 
+                  className="article-content animate-fadeIn"
+                  dangerouslySetInnerHTML={{ __html: article.content }}
+                />
+
+                {/* Tags */}
+                <div className="mt-12 pt-8 border-t border-[#DADFDB]/30 animate-fadeIn">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Tag className="w-4 h-4 text-[#3A9387]" />
+                    <p className="text-sm font-semibold text-[#194C4C]/70 uppercase tracking-wider">
+                      Related Topics
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[article.category, 'Brand Strategy', 'Marketing', 'Growth'].map((tag, index) => (
+                      <span 
+                        key={tag}
+                        className="px-4 py-2 bg-[#3A9387]/10 hover:bg-[#3A9387] text-[#3A9387] hover:text-white text-sm font-medium rounded-full transition-all duration-200 cursor-pointer animate-fadeIn"
+                        style={{animationDelay: `${index * 0.1}s`}}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1337,36 +1345,35 @@ const InsightArticle = () => {
       <SectionWrapper background="neutral">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-[#3A9387] via-[#194C4C] to-[#194C4C] rounded-3xl p-8 sm:p-10 md:p-16 text-center shadow-2xl relative overflow-hidden">
-              {/* Decorative Elements */}
+            <div className="bg-gradient-to-br from-[#3A9387] via-[#194C4C] to-[#194C4C] rounded-2xl p-8 sm:p-12 md:p-16 text-center shadow-lg relative overflow-hidden animate-slideUp">
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#F79120]/10 rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3A9387]/20 rounded-full blur-3xl"></div>
               
               <div className="relative z-10">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-8 shadow-lg">
-                  <Target className="w-10 h-10 text-[#F79120]" />
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl mb-8">
+                  <Target className="w-8 h-8 text-[#F79120]" />
                 </div>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-white mb-6 leading-tight">
+                <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-white mb-6 leading-tight">
                   Ready to Transform Your Brand?
                 </h2>
-                <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-lg text-white/90 mb-10 max-w-2xl mx-auto">
                   Let's discuss your brand strategy and create something authentic that drives real growth.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#F79120] to-[#E17C47] hover:from-[#E17C47] hover:to-[#F79120] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-xl"
+                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#F79120] to-[#E17C47] hover:from-[#E17C47] hover:to-[#F79120] text-white font-semibold px-8 py-4 rounded-full transition-all duration-300"
                   >
-                    <Calendar className="w-5 h-5" />
+                    <Send className="w-5 h-5" />
                     <span>Book a Strategy Call</span>
                   </Link>
                   <a
                     href="https://wa.me/255777296026"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 border-2 border-white/30 shadow-xl"
+                    className="inline-flex items-center justify-center gap-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 border border-white/30"
                   >
-                    <MessageCircle className="w-5 h-5" />
+                    <FaWhatsapp className="w-5 h-5" />
                     <span>WhatsApp Us</span>
                   </a>
                 </div>
@@ -1381,12 +1388,10 @@ const InsightArticle = () => {
         <SectionWrapper>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
+              <div className="text-center mb-12 animate-fadeIn">
                 <div className="inline-flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-[#3A9387]/10 rounded-xl flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-[#3A9387]" />
-                  </div>
-                  <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[#194C4C]">
+                  <TrendingUp className="w-6 h-6 text-[#3A9387]" />
+                  <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-[#194C4C]">
                     Continue Reading
                   </h2>
                 </div>
@@ -1395,26 +1400,22 @@ const InsightArticle = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {article.relatedArticles.map((related, index) => (
                   <Link
                     key={related.slug}
                     to={`/insights/${related.slug}`}
-                    className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border-2 border-[#DADFDB] hover:border-[#3A9387] transform hover:-translate-y-2"
-                    style={{
-                      animationDelay: `${index * 0.1}s`,
-                      opacity: 0,
-                      animation: 'fadeInUp 0.6s ease-out forwards'
-                    }}
+                    className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-[#DADFDB]/30 hover:border-[#3A9387]/30 animate-slideUp"
+                    style={{animationDelay: `${index * 0.1}s`}}
                   >
                     <div className="aspect-video overflow-hidden relative">
                       <img 
                         src={related.image} 
                         alt={related.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider text-white bg-[#3A9387] backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-[#3A9387] px-3 py-1.5 rounded-full">
                           <Tag className="w-3 h-3" />
                           {related.category}
                         </span>
@@ -1424,7 +1425,7 @@ const InsightArticle = () => {
                       <h3 className="font-serif text-xl font-semibold text-[#194C4C] group-hover:text-[#3A9387] transition-colors leading-snug mb-3">
                         {related.title}
                       </h3>
-                      <div className="flex items-center gap-2 text-sm text-[#3A9387] font-semibold">
+                      <div className="flex items-center gap-2 text-sm text-[#3A9387] font-medium">
                         <span>Read Article</span>
                         <span className="group-hover:translate-x-1 transition-transform">→</span>
                       </div>
@@ -1438,7 +1439,12 @@ const InsightArticle = () => {
       )}
 
       <style>{`
-        @keyframes fadeInUp {
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
           from {
             opacity: 0;
             transform: translateY(30px);
@@ -1449,53 +1455,71 @@ const InsightArticle = () => {
           }
         }
 
+        @keyframes kenBurns {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.1); }
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-slideUp {
+          animation: slideUp 0.6s ease-out forwards;
+          opacity: 0;
+        }
+
+        .animate-kenBurns {
+          animation: kenBurns 20s ease-out infinite alternate;
+        }
+
         .article-content {
           color: #194C4C;
         }
 
         .article-content .lead {
-          font-size: 1.375rem;
+          font-size: 1.25rem;
           line-height: 1.8;
           color: #194C4C;
           opacity: 0.9;
-          margin-bottom: 3rem;
+          margin-bottom: 2.5rem;
           font-weight: 500;
           padding-left: 1.5rem;
-          border-left: 4px solid #3A9387;
+          border-left: 3px solid #3A9387;
         }
 
         .article-content h2 {
           font-family: serif;
-          font-size: 2.25rem;
+          font-size: 2rem;
           font-weight: 600;
           color: #194C4C;
-          margin-top: 4rem;
-          margin-bottom: 2rem;
+          margin-top: 3.5rem;
+          margin-bottom: 1.5rem;
           line-height: 1.3;
-          scroll-margin-top: 100px;
+          scroll-margin-top: 120px;
         }
 
         .article-content h3 {
           font-family: serif;
-          font-size: 1.75rem;
+          font-size: 1.5rem;
           font-weight: 600;
           color: #3A9387;
-          margin-top: 3rem;
-          margin-bottom: 1.5rem;
+          margin-top: 2.5rem;
+          margin-bottom: 1.25rem;
         }
 
         .article-content h4 {
-          font-size: 1.25rem;
+          font-size: 1.125rem;
           font-weight: 600;
           color: #194C4C;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
+          margin-top: 1.5rem;
+          margin-bottom: 0.75rem;
         }
 
         .article-content p {
-          font-size: 1.25rem;
-          line-height: 1.9;
-          margin-bottom: 2rem;
+          font-size: 1.125rem;
+          line-height: 1.8;
+          margin-bottom: 1.5rem;
           color: #194C4C;
           opacity: 0.85;
         }
@@ -1511,18 +1535,18 @@ const InsightArticle = () => {
         }
 
         .article-content ul {
-          margin-bottom: 2.5rem;
+          margin-bottom: 2rem;
           padding-left: 0;
           list-style: none;
         }
 
         .article-content ul li {
-          font-size: 1.25rem;
-          line-height: 1.9;
-          margin-bottom: 1rem;
+          font-size: 1.125rem;
+          line-height: 1.8;
+          margin-bottom: 0.75rem;
           color: #194C4C;
           opacity: 0.85;
-          padding-left: 2rem;
+          padding-left: 1.75rem;
           position: relative;
         }
 
@@ -1535,17 +1559,16 @@ const InsightArticle = () => {
         }
 
         .article-content blockquote {
-          border-left: 5px solid #F79120;
+          border-left: 4px solid #F79120;
           background: linear-gradient(135deg, #DADFDB 0%, #F5F5F5 100%);
-          padding: 2rem 2.5rem;
-          margin: 3.5rem 0;
-          border-radius: 0 1.25rem 1.25rem 0;
-          box-shadow: 0 5px 20px rgba(25, 76, 76, 0.08);
+          padding: 1.75rem 2rem;
+          margin: 3rem 0;
+          border-radius: 0 1rem 1rem 0;
         }
 
         .article-content blockquote p {
           font-family: serif;
-          font-size: 1.5rem;
+          font-size: 1.375rem;
           font-style: italic;
           color: #194C4C;
           margin: 0;
@@ -1553,19 +1576,19 @@ const InsightArticle = () => {
         }
 
         .article-content .image-block {
-          margin: 3rem 0;
+          margin: 2.5rem 0;
         }
 
         .article-content .image-block img {
           width: 100%;
-          border-radius: 1.5rem;
-          margin-bottom: 1rem;
-          box-shadow: 0 10px 40px rgba(25, 76, 76, 0.1);
+          border-radius: 1rem;
+          margin-bottom: 0.75rem;
+          box-shadow: 0 4px 20px rgba(25, 76, 76, 0.08);
         }
 
         .article-content .caption {
           text-align: center;
-          font-size: 0.9375rem;
+          font-size: 0.875rem;
           color: #194C4C;
           opacity: 0.6;
           font-style: italic;
@@ -1575,17 +1598,16 @@ const InsightArticle = () => {
         .article-content .callout-box {
           background: linear-gradient(135deg, #3A9387 0%, #194C4C 100%);
           color: white;
-          padding: 2rem 2.5rem;
-          border-radius: 1.5rem;
-          margin: 3rem 0;
-          box-shadow: 0 10px 30px rgba(58, 147, 135, 0.2);
+          padding: 1.75rem 2rem;
+          border-radius: 1rem;
+          margin: 2.5rem 0;
         }
 
         .article-content .callout-box h4 {
           color: #F79120;
           margin-top: 0;
-          margin-bottom: 1rem;
-          font-size: 1.25rem;
+          margin-bottom: 0.75rem;
+          font-size: 1.125rem;
         }
 
         .article-content .callout-box p {
@@ -1596,41 +1618,27 @@ const InsightArticle = () => {
 
         @media (max-width: 640px) {
           .article-content .lead {
-            font-size: 1.125rem;
+            font-size: 1.0625rem;
             padding-left: 1rem;
           }
 
           .article-content h2 {
-            font-size: 1.75rem;
-            margin-top: 3rem;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
           }
 
           .article-content h3 {
-            font-size: 1.375rem;
-            margin-top: 2.5rem;
+            font-size: 1.25rem;
+            margin-top: 2rem;
           }
 
           .article-content p,
           .article-content li {
-            font-size: 1.0625rem;
-            margin-bottom: 1.5rem;
-          }
-
-          .article-content ul li {
-            padding-left: 1.5rem;
-          }
-
-          .article-content blockquote {
-            padding: 1.5rem 1.75rem;
-            margin: 2.5rem 0;
+            font-size: 1rem;
           }
 
           .article-content blockquote p {
-            font-size: 1.25rem;
-          }
-
-          .article-content .callout-box {
-            padding: 1.5rem 1.75rem;
+            font-size: 1.125rem;
           }
         }
       `}</style>
