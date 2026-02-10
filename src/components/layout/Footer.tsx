@@ -450,15 +450,6 @@ export function Footer() {
                 © {new Date().getFullYear()} Authentik. All rights reserved.
               </p>
               <div className="flex flex-col gap-3 text-sm">
-                <div className="flex justify-center gap-4">
-                  <Link to="/privacy" className="text-white/60 hover:text-[#F79120] transition-colors">
-                    Privacy
-                  </Link>
-                  <span className="text-white/30">|</span>
-                  <Link to="/terms" className="text-white/60 hover:text-[#F79120] transition-colors">
-                    Terms
-                  </Link>
-                </div>
                 <a
                   href="https://wayreal.co"
                   target="_blank"
