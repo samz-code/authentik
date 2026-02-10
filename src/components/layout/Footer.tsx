@@ -464,7 +464,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-white/60 hover:text-[#F79120] transition-colors"
                 >
-                  Developer: Emoni Samuel
+                  Developer: Emoni A. Samuel
                 </a>
               </div>
             </div>
