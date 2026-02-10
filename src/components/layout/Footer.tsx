@@ -53,7 +53,7 @@ export function Footer() {
     const handleScroll = () => {
       if (window.scrollY > 300) {
         setShowScrollTop(true);
-        setShowButtons(true); // Show buttons again when scrolling
+        setShowButtons(true);
       } else {
         setShowScrollTop(false);
       }
@@ -67,7 +67,7 @@ export function Footer() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowButtons(false);
-    }, 10000); // Hide after 10 seconds
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [showButtons]);
@@ -80,7 +80,7 @@ export function Footer() {
   };
 
   const handleMouseEnter = () => {
-    setShowButtons(true); // Show buttons on hover
+    setShowButtons(true);
   };
 
   const handleNewsletterSubmit = async (e) => {
@@ -90,7 +90,7 @@ export function Footer() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 3000);
+      setTimeout(() => setSubmitStatus(null), 4000);
       return;
     }
 
@@ -98,25 +98,37 @@ export function Footer() {
     setSubmitStatus(null);
 
     try {
-      // Create mailto link with subscription request
-      const subject = encodeURIComponent("Newsletter Subscription Request");
-      const body = encodeURIComponent(
-        `Hello Authentik Team,\n\nI would like to subscribe to your newsletter.\n\nEmail: ${email}\n\nThank you!`
-      );
-      
-      // Open default email client
-      window.location.href = `mailto:${contactInfo.email}?subject=${subject}&body=${body}`;
-      
-      // Show success message
-      setSubmitStatus('success');
-      setEmail("");
-      
-      // Reset status after 5 seconds
-      setTimeout(() => setSubmitStatus(null), 5000);
+      // Using Web3Forms - Free form backend service
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "17575eb6-0409-41be-8ef5-f4b73d82c143",
+          subject: "New Newsletter Subscription - Authentik",
+          from_name: "Authentik Website",
+          email: email,
+          message: `New newsletter subscription request from: ${email}`,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setEmail("");
+        
+        // Reset status after 5 seconds
+        setTimeout(() => setSubmitStatus(null), 5000);
+      } else {
+        throw new Error('Submission failed');
+      }
     } catch (error) {
       console.error('Newsletter subscription error:', error);
       setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 3000);
+      setTimeout(() => setSubmitStatus(null), 4000);
     } finally {
       setIsSubmitting(false);
     }
@@ -137,14 +149,14 @@ export function Footer() {
       </div>
       
       {submitStatus === 'success' && (
-        <div className="text-sm text-green-400 bg-green-400/10 border border-green-400/20 rounded-lg p-3">
-          Thank you! Your email client should open. Please send the email to complete your subscription.
+        <div className="text-sm text-green-400 bg-green-400/10 border border-green-400/20 rounded-lg p-3 animate-in fade-in slide-in-from-top-2 duration-300">
+          🎉 Success! You've been subscribed to our newsletter.
         </div>
       )}
       
       {submitStatus === 'error' && (
-        <div className="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-3">
-          Please enter a valid email address.
+        <div className="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-3 animate-in fade-in slide-in-from-top-2 duration-300">
+          ⚠️ Oops! Please enter a valid email address and try again.
         </div>
       )}
       
@@ -154,7 +166,17 @@ export function Footer() {
         disabled={isSubmitting}
         className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
       >
-        {isSubmitting ? 'Processing...' : 'Subscribe'}
+        {isSubmitting ? (
+          <span className="flex items-center justify-center gap-2">
+            <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Subscribing...
+          </span>
+        ) : (
+          'Subscribe'
+        )}
       </Button>
     </form>
   );
