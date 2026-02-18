@@ -311,7 +311,7 @@ export function Footer() {
                     Terms of Service
                   </Link>
                   <a
-                    href="https://wayreal.co"
+                    href="https://www.wayreal.co.ke"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium"
