@@ -304,12 +304,6 @@ export function Footer() {
                   © {new Date().getFullYear()} Authentik. All rights reserved.
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm">
-                  <Link to="/privacy" className="text-white/60 hover:text-[#F79120] transition-colors">
-                    Privacy Policy
-                  </Link>
-                  <Link to="/terms" className="text-white/60 hover:text-[#F79120] transition-colors">
-                    Terms of Service
-                  </Link>
                   <a
                     href="https://www.wayreal.co.ke"
                     target="_blank"
