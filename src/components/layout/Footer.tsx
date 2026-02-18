@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const exploreLinks = [
   { name: "About Authentik", href: "/about" },
@@ -41,14 +41,257 @@ const contactInfo = {
   homes: "+255 674 593 918",
 };
 
+// Common email domains for autocomplete suggestions
+const EMAIL_DOMAINS = [
+  "gmail.com",
+  "yahoo.com",
+  "outlook.com",
+  "hotmail.com",
+  "icloud.com",
+  "me.com",
+  "live.com",
+  "mail.com",
+  "protonmail.com",
+  "aol.com",
+];
+
+// ─── Smart Autocomplete Newsletter Form ──────────────────────────────────────
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const inputRef = useRef(null);
+
+  // Generate domain suggestions whenever the user types
+  useEffect(() => {
+    if (!email.includes("@")) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    const [localPart, domainPart] = email.split("@");
+
+    if (!localPart) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    let filtered;
+    if (!domainPart) {
+      // Just typed @, show all common domains
+      filtered = EMAIL_DOMAINS.map((d) => `${localPart}@${d}`);
+    } else {
+      // Filter domains that start with what they've typed after @
+      filtered = EMAIL_DOMAINS
+        .filter((d) => d.startsWith(domainPart.toLowerCase()) && d !== domainPart.toLowerCase())
+        .map((d) => `${localPart}@${d}`);
+    }
+
+    setSuggestions(filtered.slice(0, 5));
+    setShowSuggestions(filtered.length > 0);
+    setActiveSuggestion(-1);
+  }, [email]);
+
+  const handleKeyDown = (e) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveSuggestion((prev) => Math.min(prev + 1, suggestions.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveSuggestion((prev) => Math.max(prev - 1, -1));
+    } else if (e.key === "Enter" && activeSuggestion >= 0) {
+      e.preventDefault();
+      selectSuggestion(suggestions[activeSuggestion]);
+    } else if (e.key === "Escape") {
+      setShowSuggestions(false);
+    } else if (e.key === "Tab" && suggestions.length > 0) {
+      e.preventDefault();
+      selectSuggestion(suggestions[0]);
+    }
+  };
+
+  const selectSuggestion = (value) => {
+    setEmail(value);
+    setSuggestions([]);
+    setShowSuggestions(false);
+    setActiveSuggestion(-1);
+    inputRef.current?.focus();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 4000);
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setShowSuggestions(false);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: "17575eb6-0409-41be-8ef5-f4b73d82c143",
+          subject: "New Newsletter Subscription - Authentik",
+          from_name: "Authentik Website",
+          email,
+          message: `New newsletter subscription from: ${email}`,
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setSubmitStatus("success");
+        setEmail("");
+        setTimeout(() => setSubmitStatus(null), 6000);
+      } else throw new Error();
+    } catch {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 4000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      {submitStatus === "success" ? (
+        <div className="text-center py-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+          <div className="text-4xl mb-3">🎉</div>
+          <p className="text-green-400 font-semibold text-base">You're subscribed!</p>
+          <p className="text-white/50 text-sm mt-2">Expect insights on branding & growth soon.</p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-3">
+          {/* Input + suggestions dropdown */}
+          <div className="relative">
+            <div className="relative">
+              {/* Mail icon */}
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </span>
+
+              <input
+                ref={inputRef}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                placeholder="Your email address"
+                autoComplete="off"
+                disabled={isSubmitting}
+                className="w-full pl-12 pr-10 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-[#F79120] focus:bg-white/15 transition-all duration-300 disabled:opacity-50 text-base"
+              />
+
+              {/* Clear button */}
+              {email && (
+                <button
+                  type="button"
+                  onClick={() => { setEmail(""); setSuggestions([]); setShowSuggestions(false); inputRef.current?.focus(); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/70 transition-colors"
+                  tabIndex={-1}
+                  aria-label="Clear"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            {/* Autocomplete dropdown */}
+            {showSuggestions && suggestions.length > 0 && (
+              <ul
+                className="absolute z-50 mt-1 w-full bg-[#0d2626] border border-[#F79120]/30 rounded-xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150"
+                role="listbox"
+              >
+                {suggestions.map((suggestion, index) => {
+                  const [local, domain] = suggestion.split("@");
+                  return (
+                    <li
+                      key={suggestion}
+                      role="option"
+                      aria-selected={index === activeSuggestion}
+                      onMouseDown={() => selectSuggestion(suggestion)}
+                      onMouseEnter={() => setActiveSuggestion(index)}
+                      className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-100 ${
+                        index === activeSuggestion
+                          ? "bg-[#F79120]/20 text-white"
+                          : "text-white/70 hover:bg-white/5"
+                      }`}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 flex-shrink-0 text-[#F79120]/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                      <span className="text-sm truncate">
+                        <span className="text-white font-medium">{local}@</span>
+                        <span className={index === activeSuggestion ? "text-[#F79120]" : "text-white/60"}>
+                          {domain}
+                        </span>
+                      </span>
+                    </li>
+                  );
+                })}
+                <li className="px-4 py-2 border-t border-white/5">
+                  <p className="text-white/25 text-xs">↑↓ navigate · Tab or Enter to select</p>
+                </li>
+              </ul>
+            )}
+          </div>
+
+          {/* Hint: nudge user to type @ */}
+          {email && !email.includes("@") && (
+            <p className="text-white/35 text-xs pl-1 animate-in fade-in duration-200">
+              Type <span className="text-[#F79120]/70 font-mono">@</span> to see email suggestions
+            </p>
+          )}
+
+          {submitStatus === "error" && (
+            <div className="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-3 animate-in fade-in duration-300">
+              ⚠️ Please enter a valid email address and try again.
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-base"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Subscribing...
+              </span>
+            ) : (
+              "Subscribe →"
+            )}
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function Footer() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showButtons, setShowButtons] = useState(true);
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
 
-  // Show scroll to top button when user scrolls down
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 300) {
@@ -58,133 +301,21 @@ export function Footer() {
         setShowScrollTop(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Auto-hide buttons after 10 seconds of no interaction
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowButtons(false);
-    }, 10000);
-
+    const timer = setTimeout(() => setShowButtons(false), 10000);
     return () => clearTimeout(timer);
   }, [showButtons]);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const handleMouseEnter = () => {
-    setShowButtons(true);
-  };
-
-  const handleNewsletterSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 4000);
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // Using Web3Forms - Free form backend service
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "17575eb6-0409-41be-8ef5-f4b73d82c143",
-          subject: "New Newsletter Subscription - Authentik",
-          from_name: "Authentik Website",
-          email: email,
-          message: `New newsletter subscription request from: ${email}`,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setSubmitStatus('success');
-        setEmail("");
-        
-        // Reset status after 5 seconds
-        setTimeout(() => setSubmitStatus(null), 5000);
-      } else {
-        throw new Error('Submission failed');
-      }
-    } catch (error) {
-      console.error('Newsletter subscription error:', error);
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 4000);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const NewsletterForm = ({ isMobile = false }) => (
-    <form onSubmit={handleNewsletterSubmit} className="space-y-4">
-      <div>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your email address"
-          required
-          disabled={isSubmitting}
-          className="w-full px-5 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 focus:outline-none focus:border-[#F79120] focus:bg-white/15 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-        />
-      </div>
-      
-      {submitStatus === 'success' && (
-        <div className="text-sm text-green-400 bg-green-400/10 border border-green-400/20 rounded-lg p-3 animate-in fade-in slide-in-from-top-2 duration-300">
-          🎉 Success! You've been subscribed to our newsletter.
-        </div>
-      )}
-      
-      {submitStatus === 'error' && (
-        <div className="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg p-3 animate-in fade-in slide-in-from-top-2 duration-300">
-          ⚠️ Oops! Please enter a valid email address and try again.
-        </div>
-      )}
-      
-      <Button 
-        type="submit"
-        variant="accent" 
-        disabled={isSubmitting}
-        className="w-full bg-[#F79120] hover:bg-[#E17C47] text-white font-semibold py-4 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-      >
-        {isSubmitting ? (
-          <span className="flex items-center justify-center gap-2">
-            <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Subscribing...
-          </span>
-        ) : (
-          'Subscribe'
-        )}
-      </Button>
-    </form>
-  );
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const handleMouseEnter = () => setShowButtons(true);
 
   return (
     <>
       <footer className="bg-gradient-to-b from-[#194C4C] to-[#0d2626] text-white relative overflow-hidden">
-        {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#F79120]/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3A9387]/5 rounded-full blur-3xl"></div>
 
@@ -192,33 +323,20 @@ export function Footer() {
         <div className="hidden md:block py-16 lg:py-20 relative z-10">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-              {/* Brand Column */}
+              {/* Brand */}
               <div className="lg:col-span-1">
                 <Link to="/" className="inline-block group">
-                  <img 
-                    src="/logow.png" 
-                    alt="Authentik" 
-                    className="h-24 md:h-32 lg:h-36 w-auto group-hover:opacity-80 transition-opacity duration-300"
-                  />
+                  <img src="/logow.png" alt="Authentik" className="h-24 md:h-32 lg:h-36 w-auto group-hover:opacity-80 transition-opacity duration-300"/>
                 </Link>
                 <p className="mt-6 text-base text-white/80 leading-relaxed">
-                  Helping brands, creators, and property owners express who they truly
-                  are, visually, verbally, and strategically.
+                  Helping brands, creators, and property owners express who they truly are, visually, verbally, and strategically.
                 </p>
-                
-                {/* Social Links */}
                 <div className="mt-8">
                   <p className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase">Follow Us</p>
                   <div className="flex gap-3">
                     {socialLinks.map((social) => (
-                      <a
-                        key={social.name}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-10 h-10 bg-white/10 hover:bg-[#F79120] rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                        aria-label={social.name}
-                      >
+                      <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
+                        className="w-10 h-10 bg-white/10 hover:bg-[#F79120] rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label={social.name}>
                         <i className={`${social.icon} text-white`}></i>
                       </a>
                     ))}
@@ -226,70 +344,40 @@ export function Footer() {
                 </div>
               </div>
 
-              {/* Explore Column */}
+              {/* Explore */}
               <div className="lg:col-span-1">
-                <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">
-                  Explore
-                </h4>
+                <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">Explore</h4>
                 <ul className="space-y-4 mt-6">
                   {exploreLinks.map((link) => (
                     <li key={link.name}>
-                      <Link
-                        to={link.href}
-                        className="group text-base text-white/80 hover:text-[#F79120] transition-colors duration-300 inline-block"
-                      >
-                        {link.name}
-                      </Link>
+                      <Link to={link.href} className="group text-base text-white/80 hover:text-[#F79120] transition-colors duration-300 inline-block">{link.name}</Link>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              {/* Contact Column */}
+              {/* Contact */}
               <div className="lg:col-span-1">
-                <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">
-                  Get In Touch
-                </h4>
+                <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">Get In Touch</h4>
                 <ul className="space-y-6 mt-6">
                   <li>
                     <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Email</p>
-                    <a
-                      href={`mailto:${contactInfo.email}`}
-                      className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block"
-                    >
-                      {contactInfo.email}
-                    </a>
+                    <a href={`mailto:${contactInfo.email}`} className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block">{contactInfo.email}</a>
                   </li>
                   <li>
                     <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Marketing</p>
-                    <a
-                      href={`https://wa.me/${contactInfo.marketing.replace(/\s/g, "")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block"
-                    >
-                      {contactInfo.marketing}
-                    </a>
+                    <a href={`https://wa.me/${contactInfo.marketing.replace(/\s/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block">{contactInfo.marketing}</a>
                   </li>
                   <li>
                     <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Homes</p>
-                    <a
-                      href={`https://wa.me/${contactInfo.homes.replace(/\s/g, "")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block"
-                    >
-                      {contactInfo.homes}
-                    </a>
+                    <a href={`https://wa.me/${contactInfo.homes.replace(/\s/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-base text-white/90 hover:text-[#F79120] transition-colors duration-300 inline-block">{contactInfo.homes}</a>
                   </li>
                 </ul>
               </div>
 
-              {/* Newsletter Column */}
+              {/* Newsletter */}
               <div className="lg:col-span-1">
-                <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">
-                  Stay Updated
-                </h4>
+                <h4 className="font-serif text-xl font-semibold text-white mb-6 pb-2 border-b-2 border-[#F79120] inline-block">Stay Updated</h4>
                 <p className="text-base text-white/80 mb-6 mt-6 leading-relaxed">
                   Get insights on branding, growth, and hospitality delivered to your inbox.
                 </p>
@@ -300,27 +388,11 @@ export function Footer() {
             {/* Bottom Bar */}
             <div className="mt-16 pt-8 border-t border-white/10">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <p className="text-sm text-white/60">
-                  © {new Date().getFullYear()} Authentik. All rights reserved.
-                </p>
+                <p className="text-sm text-white/60">© {new Date().getFullYear()} Authentik. All rights reserved.</p>
                 <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm">
-                  <a
-                    href="https://www.wayreal.co.ke"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium"
-                  >
-                    A Wayreal Creative Hub brand
-                  </a>
+                  <a href="https://www.wayreal.co.ke" target="_blank" rel="noopener noreferrer" className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium">A Wayreal Creative Hub brand</a>
                   <span className="text-white/30 hidden md:inline">|</span>
-                  <a
-                    href="https://www.emonisamuel.co.ke"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/60 hover:text-[#F79120] transition-colors"
-                  >
-                    Developer: Emoni Samuel
-                  </a>
+                  <a href="https://www.emonisamuel.co.ke" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#F79120] transition-colors">Developer: Emoni Samuel</a>
                 </div>
               </div>
             </div>
@@ -330,36 +402,23 @@ export function Footer() {
         {/* Mobile Footer */}
         <div className="md:hidden py-12 relative z-10">
           <div className="container mx-auto px-4 sm:px-6">
-            {/* Brand */}
             <div className="mb-10 text-center">
               <Link to="/" className="inline-block">
-                <img 
-                  src="/logow.png" 
-                  alt="Authentik" 
-                  className="h-20 md:h-24 w-auto mx-auto mb-3 hover:opacity-80 transition-opacity duration-300"
-                />
+                <img src="/logow.png" alt="Authentik" className="h-20 w-auto mx-auto mb-3 hover:opacity-80 transition-opacity duration-300"/>
               </Link>
               <p className="text-base text-white/80 leading-relaxed max-w-sm mx-auto">
                 Helping brands, creators, and property owners express who they truly are.
               </p>
             </div>
 
-            {/* Accordion Sections */}
             <Accordion type="single" collapsible className="space-y-3 mb-10">
               <AccordionItem value="explore" className="border border-white/10 rounded-xl overflow-hidden bg-white/5">
-                <AccordionTrigger className="text-white hover:no-underline px-6 py-4 font-semibold">
-                  Explore
-                </AccordionTrigger>
+                <AccordionTrigger className="text-white hover:no-underline px-6 py-4 font-semibold">Explore</AccordionTrigger>
                 <AccordionContent className="px-6 pb-4">
                   <ul className="space-y-3 pt-2">
                     {exploreLinks.map((link) => (
                       <li key={link.name}>
-                        <Link
-                          to={link.href}
-                          className="text-white/80 hover:text-[#F79120] transition-colors py-2 inline-block"
-                        >
-                          {link.name}
-                        </Link>
+                        <Link to={link.href} className="text-white/80 hover:text-[#F79120] transition-colors py-2 inline-block">{link.name}</Link>
                       </li>
                     ))}
                   </ul>
@@ -367,130 +426,67 @@ export function Footer() {
               </AccordionItem>
 
               <AccordionItem value="contact" className="border border-white/10 rounded-xl overflow-hidden bg-white/5">
-                <AccordionTrigger className="text-white hover:no-underline px-6 py-4 font-semibold">
-                  Contact
-                </AccordionTrigger>
+                <AccordionTrigger className="text-white hover:no-underline px-6 py-4 font-semibold">Contact</AccordionTrigger>
                 <AccordionContent className="px-6 pb-4">
                   <ul className="space-y-5 pt-2">
                     <li>
                       <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Email</p>
-                      <a
-                        href={`mailto:${contactInfo.email}`}
-                        className="text-white/90 hover:text-[#F79120] transition-colors inline-block"
-                      >
-                        {contactInfo.email}
-                      </a>
+                      <a href={`mailto:${contactInfo.email}`} className="text-white/90 hover:text-[#F79120] transition-colors inline-block">{contactInfo.email}</a>
                     </li>
                     <li>
                       <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Marketing</p>
-                      <a
-                        href={`https://wa.me/${contactInfo.marketing.replace(/\s/g, "")}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/90 hover:text-[#F79120] transition-colors inline-block"
-                      >
-                        {contactInfo.marketing}
-                      </a>
+                      <a href={`https://wa.me/${contactInfo.marketing.replace(/\s/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:text-[#F79120] transition-colors inline-block">{contactInfo.marketing}</a>
                     </li>
                     <li>
                       <p className="text-xs text-white/60 uppercase tracking-wide mb-2 font-medium">Homes</p>
-                      <a
-                        href={`https://wa.me/${contactInfo.homes.replace(/\s/g, "")}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/90 hover:text-[#F79120] transition-colors inline-block"
-                      >
-                        {contactInfo.homes}
-                      </a>
+                      <a href={`https://wa.me/${contactInfo.homes.replace(/\s/g, "")}`} target="_blank" rel="noopener noreferrer" className="text-white/90 hover:text-[#F79120] transition-colors inline-block">{contactInfo.homes}</a>
                     </li>
                   </ul>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
 
-            {/* Newsletter */}
             <div className="mb-10 bg-white/5 border border-white/10 rounded-2xl p-6">
-              <h4 className="font-serif text-xl font-semibold text-white mb-4">
-                Stay Updated
-              </h4>
-              <p className="text-sm text-white/80 mb-6">
-                Get insights delivered to your inbox.
-              </p>
-              <NewsletterForm isMobile={true} />
+              <h4 className="font-serif text-xl font-semibold text-white mb-4">Stay Updated</h4>
+              <p className="text-sm text-white/80 mb-6">Get insights delivered to your inbox.</p>
+              <NewsletterForm />
             </div>
 
-            {/* Social Links */}
             <div className="mb-10 text-center">
               <p className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase">Follow Us</p>
               <div className="flex justify-center gap-4">
                 {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 bg-white/10 hover:bg-[#F79120] rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                    aria-label={social.name}
-                  >
+                  <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer"
+                    className="w-12 h-12 bg-white/10 hover:bg-[#F79120] rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" aria-label={social.name}>
                     <i className={`${social.icon} text-white text-lg`}></i>
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Bottom */}
             <div className="pt-8 border-t border-white/10 text-center space-y-3">
-              <p className="text-sm text-white/60">
-                © {new Date().getFullYear()} Authentik. All rights reserved.
-              </p>
+              <p className="text-sm text-white/60">© {new Date().getFullYear()} Authentik. All rights reserved.</p>
               <div className="flex flex-col gap-3 text-sm">
-                <a
-                  href="https://wayreal.co"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium"
-                >
-                  A Wayreal Creative Hub brand
-                </a>
-                <a
-                  href="https://www.emonisamuel.co.ke"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/60 hover:text-[#F79120] transition-colors"
-                >
-                  Developer: Emoni A. Samuel
-                </a>
+                <a href="https://wayreal.co" target="_blank" rel="noopener noreferrer" className="text-[#F79120] hover:text-[#E17C47] transition-colors font-medium">A Wayreal Creative Hub brand</a>
+                <a href="https://www.emonisamuel.co.ke" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-[#F79120] transition-colors">Developer: Emoni A. Samuel</a>
               </div>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Scroll to Top Button */}
       {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          onMouseEnter={handleMouseEnter}
-          className={`fixed bottom-24 right-6 z-50 w-14 h-14 bg-[#F79120] hover:bg-[#E17C47] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 ${
-            showButtons ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
-          aria-label="Scroll to top"
-        >
+        <button onClick={scrollToTop} onMouseEnter={handleMouseEnter}
+          className={`fixed bottom-24 right-6 z-50 w-14 h-14 bg-[#F79120] hover:bg-[#E17C47] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 ${showButtons ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+          aria-label="Scroll to top">
           <i className="fas fa-arrow-up text-xl"></i>
         </button>
       )}
 
-      {/* WhatsApp Chat Button */}
-      <a
-        href="https://wa.me/255777296026?text=Hi%20Authentik%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services"
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseEnter={handleMouseEnter}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 group ${
-          showButtons ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
-        aria-label="Chat on WhatsApp"
-      >
+      <a href="https://wa.me/255777296026?text=Hi%20Authentik%2C%20I%27d%20like%20to%20know%20more%20about%20your%20services"
+        target="_blank" rel="noopener noreferrer" onMouseEnter={handleMouseEnter}
+        className={`fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 group ${showButtons ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        aria-label="Chat on WhatsApp">
         <i className="fab fa-whatsapp text-3xl group-hover:scale-110 transition-transform"></i>
       </a>
     </>
