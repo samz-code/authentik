@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { MessageCircle, ArrowRight, ExternalLink, Bed, Bath, Users, MapPin, Shield, Headset, Sparkles } from "lucide-react";
 import propertyVilla from "@/assets/property-villa.jpg";
+import patio from "@/assets/patio.jpg";
 import propertyStonetown from "@/assets/property-stonetown.jpg";
 import propertyPaje from "@/assets/property-paje.jpg";
 
@@ -11,7 +12,7 @@ const properties = [
     title: "Oyster Bay Luxe Retreat",
     location: "Dar es Salaam, Tanzania",
     description: "Private room in scenic Oyster Bay with dedicated bathroom, Netflix, AC, and all modern comforts.",
-    image: propertyVilla,
+    image: patio,
     airbnbUrl: "https://www.airbnb.com/rooms/1495593631577847251",
     bedrooms: 1,
     bathrooms: 1,
