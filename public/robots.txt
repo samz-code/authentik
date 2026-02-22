@@ -12,3 +12,38 @@ Allow: /
 
 User-agent: *
 Allow: /
+# robots.txt for Authentik Marketing Solutions
+# https://authentik.tz
+
+# Allow all search engine crawlers
+User-agent: *
+Allow: /
+
+# Block access to private/utility paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_private/
+Disallow: /404
+Disallow: /*?*        # Block query string URLs (prevents duplicate content)
+
+# Crawl delay to be polite to the server
+Crawl-delay: 5
+
+# AI training bots — block to protect your original content
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Sitemap location
+Sitemap: https://authentik.tz/sitemap.xml
